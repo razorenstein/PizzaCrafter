@@ -1,0 +1,17 @@
+{
+    "name": "_PizzaCrafter.Core.Loaders",
+    "rootNamespace": "",
+    "references": [
+        "GUID:6c667b6072984004e822ae61576333d0",
+        "GUID:fc4da8642d1ee034aba92d7fb6a8215d"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
