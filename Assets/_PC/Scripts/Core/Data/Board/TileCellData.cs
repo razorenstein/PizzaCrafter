@@ -1,4 +1,4 @@
-﻿namespace Assets._PC.Scripts.Core.Data
+﻿namespace Assets._PC.Scripts.Core.Data.Board
 {
     public class TileCellData
     {
@@ -11,6 +11,5 @@
         }
 
         public bool IsOccupied() => Tile != null;
-        
     }
 }

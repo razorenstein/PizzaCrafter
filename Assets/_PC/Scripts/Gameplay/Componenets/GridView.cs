@@ -1,6 +1,6 @@
 using Assets._PC.Scripts.Core.Components;
 using Assets._PC.Scripts.Core.Data;
-using Assets._PC.Scripts.Gameplay.Components;
+using Assets._PC.Scripts.Core.Data.Board;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,7 +21,7 @@ namespace Assets._PC.Scripts.Gameplay.Components
             _gridLayoutGroup.constraintCount = _width;
             //get from manager all data
             CreateGrid();
-            Manager.BoardManager.TrySetTile(new GridPosition(1,1), ItemType.Tomato);
+            Manager.BoardManager.TrySetTile(new GridPosition(1, 1), ItemType.Tomato);
         }
 
         private void CreateGrid()

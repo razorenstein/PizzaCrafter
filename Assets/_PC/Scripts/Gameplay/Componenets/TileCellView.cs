@@ -1,9 +1,8 @@
 using Assets._PC.Scripts.Core.Components;
-using Assets._PC.Scripts.Core.Data;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Assets._PC.Scripts.Gameplay.Components
+namespace Assets._PC.Scripts.Core.Data.Board
 {
     public class TileCellView : PCMonoBehaviour
     {

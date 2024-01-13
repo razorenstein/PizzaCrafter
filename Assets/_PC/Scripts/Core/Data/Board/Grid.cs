@@ -1,6 +1,6 @@
 ﻿using Assets._PC.Scripts.Core.Data;
 
-namespace Assets._PC.Scripts.Core.Data
+namespace Assets._PC.Scripts.Core.Data.Board
 {
     public class Grid
     {

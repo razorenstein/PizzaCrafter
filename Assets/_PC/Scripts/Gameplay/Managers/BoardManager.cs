@@ -1,4 +1,5 @@
 ﻿using Assets._PC.Scripts.Core.Data;
+using Assets._PC.Scripts.Core.Data.Board;
 
 namespace Assets._PC.Scripts.Gameplay.Managers
 {
