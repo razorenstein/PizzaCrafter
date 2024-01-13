@@ -1,7 +1,9 @@
 {
-    "name": "_MineFest.Core.Managers",
+    "name": "_PizzaCrafter.Gameplay.Managers",
     "rootNamespace": "",
     "references": [
+        "GUID:4860231ca43910640a5b03a9e8ba2bc4",
+        "GUID:6c667b6072984004e822ae61576333d0",
         "GUID:89518d4d96b13634abfacaccb89943ed"
     ],
     "includePlatforms": [],

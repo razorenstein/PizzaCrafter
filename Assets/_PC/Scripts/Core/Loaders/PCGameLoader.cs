@@ -1,8 +1,8 @@
-using _MineFest.Core.Managers;
-using _PizzaCrafter.Core.Components;
+using Assets._PC.Scripts.Core.Components;
+using Assets._PC.Scripts.Core.Managers;
 using UnityEngine.SceneManagement;
 
-namespace _PizzaCrafter.Core.Loaders
+namespace Assets._PC.Scripts.Core.Loaders
 {
     public class PCGameLoader : PCMonoBehaviour
     {

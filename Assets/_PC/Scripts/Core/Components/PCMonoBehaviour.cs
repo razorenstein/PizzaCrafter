@@ -1,7 +1,7 @@
-using _MineFest.Core.Managers;
+using Assets._PC.Scripts.Core.Managers;
 using UnityEngine;
 
-namespace _PizzaCrafter.Core.Components
+namespace Assets._PC.Scripts.Core.Components
 {
     public class PCMonoBehaviour : MonoBehaviour
     {
