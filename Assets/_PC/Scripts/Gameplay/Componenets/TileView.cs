@@ -14,10 +14,5 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             _data = data;
             Debug.Log($"Initialized tile at {_data.Position.Row}, {_data.Position.Column}");
         }
-
-        public void Spawn(CellView cell)
-        {
-            transform.position = cell.transform.position;
-        }
     }
 }

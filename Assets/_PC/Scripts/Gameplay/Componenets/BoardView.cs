@@ -39,10 +39,9 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
 
         private void SetTile(TileData tileData)
         {
-            var cell = _gridView.GetCell(tileData.Position);
-            var tile = Instantiate(_tilePrefab, _gridView.transform);
+            var cell = _gridView.GetCell(tileData.Position).transform as RectTransform;
+            var tile = Instantiate(_tilePrefab, cell.transform);
             tile.Initialize(tileData);
-            tile.Spawn(cell);
             _tiles.Add(tile);
         }
 

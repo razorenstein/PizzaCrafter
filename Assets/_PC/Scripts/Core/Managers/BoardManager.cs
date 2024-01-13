@@ -26,15 +26,24 @@ namespace Assets._PC.Scripts.Core.Managers
             Grid.Initialize();
         }
 
-        public bool TrySetTile(GridPosition position, ItemType itemType)
+        public bool TrySetTile(ItemData itemData)
+        {
+            if (Grid.TryGetRandomEmptyCell(out var emptyCell))
+            {
+                if (TrySetTile(emptyCell.Position, itemData))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool TrySetTile(GridPosition position, ItemData itemData)
         {
             var tile = new TileData()
             {
-                Item = new ItemData
-                {
-                    Type = itemType,
-                    Level = 1
-                },
+                Item = itemData,
                 Position = position
             };
 

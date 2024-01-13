@@ -17,6 +17,8 @@ namespace Assets._PC.Scripts.Core.Managers
 
         //Gameplay
         public BoardManager BoardManager;
+        public ResourceManager ResourceManager;
+
 
         public PCManager()
         {
@@ -27,6 +29,7 @@ namespace Assets._PC.Scripts.Core.Managers
 
             EventManager = new PCEventManager<PCBaseEventData>();
             BoardManager = new BoardManager(new GridSize(_boardRows, _boardCols));
+            ResourceManager = new ResourceManager();
         }
     }
 }

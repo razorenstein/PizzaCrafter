@@ -18,9 +18,7 @@ namespace Assets._PC.Scripts.Gameplay.Components
         public void Initialize()
         {
             _gridSize = Manager.BoardManager.Grid.GridSize;
-            _gridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-            _gridLayoutGroup.constraintCount = _gridSize.Columns;
-
+            InitializeGridUI();
             CreateGrid(Manager.BoardManager.Grid.CellsState);
         }
 
@@ -31,12 +29,32 @@ namespace Assets._PC.Scripts.Gameplay.Components
             {
                 for (int column = 0; column < _gridSize.Columns; column++)
                 {
-                    var cell = Instantiate(_cellPrefab, _gridLayoutGroup.transform, false);
+                    var cell = Instantiate(_cellPrefab, _gridLayoutGroup.transform);
                     var cellData = cellsData[row, column];
                     cell.Initialize(cellData);
                     _gridView[column, row] = cell;
+                    Debug.Log($"cell position is{cell.transform.position.x},{cell.transform.position.y},{cell.transform.position.z}");
                 }
             }
+        }
+
+        private void InitializeGridUI()
+        {
+            _gridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            _gridLayoutGroup.constraintCount = _gridSize.Columns;
+
+            //set cell size
+            var gridLayoutGroupRect = _gridLayoutGroup.transform as RectTransform;
+            float totalHorizontalPadding = _gridLayoutGroup.padding.left + _gridLayoutGroup.padding.right;
+            float totalVerticalPadding = _gridLayoutGroup.padding.top + _gridLayoutGroup.padding.bottom;
+
+            float totalHorizontalSpacing = (_gridSize.Columns - 1) * _gridLayoutGroup.spacing.x;
+            float totalVerticalSpacing = (_gridSize.Rows - 1) * _gridLayoutGroup.spacing.y;
+
+            float cellWidth = (gridLayoutGroupRect.rect.width - totalHorizontalPadding - totalHorizontalSpacing) / _gridSize.Columns;
+            float cellHeight = (gridLayoutGroupRect.rect.height - totalVerticalPadding - totalVerticalSpacing) / _gridSize.Rows;
+
+            _gridLayoutGroup.cellSize = new Vector2(cellWidth, cellHeight);
         }
     }
 }

@@ -1,4 +1,7 @@
 ﻿using Assets._PC.Scripts.Core.Data;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace Assets._PC.Scripts.Core.Data.Board
 {
@@ -57,6 +60,34 @@ namespace Assets._PC.Scripts.Core.Data.Board
             }
 
             return false;
+        }
+
+        public bool TryGetRandomEmptyCell(out CellData cell)
+        {
+            cell = null;
+            var emptyCells = GetEmptyCells();
+
+            if (emptyCells.Any())
+            {
+                var randomIndex = Random.Range(0, emptyCells.Count - 1);
+                cell = emptyCells[randomIndex];
+
+                return true;
+            }
+
+            return false;
+        }
+
+        private List<CellData> GetEmptyCells()
+        {
+            var emptyCells = new List<CellData>();
+            foreach (var cell in CellsState)
+            {
+                if (!cell.IsOccupied())
+                    emptyCells.Add(cell);
+            }
+
+            return emptyCells;
         }
 
         private bool IsPositionValid(GridPosition position) =>
