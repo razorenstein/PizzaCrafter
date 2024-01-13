@@ -4,7 +4,7 @@ namespace Assets._PC.Scripts.Core.Data.Board
 {
     public class Grid
     {
-        public TileCellData[,] CellsState { get; private set; }
+        public CellData[,] CellsState { get; private set; }
         public GridSize GridSize { get; private set; }
 
         public Grid(GridSize gridSize)
@@ -17,17 +17,17 @@ namespace Assets._PC.Scripts.Core.Data.Board
 
         public void Initialize()
         {
-            CellsState = new TileCellData[GridSize.Rows, GridSize.Columns];
+            CellsState = new CellData[GridSize.Rows, GridSize.Columns];
             for (int row = 0; row < GridSize.Rows; row++)
             {
                 for (int col = 0; col < GridSize.Columns; col++)
                 {
-                    CellsState[row, col] = new TileCellData(new GridPosition(row, col));
+                    CellsState[row, col] = new CellData(new GridPosition(row, col));
                 }
             }
         }
 
-        public bool TrySetTile(TileData tile, out TileCellData targetCell)
+        public bool TrySetTile(TileData tile, out CellData targetCell)
         {
             targetCell = null;
 
@@ -43,7 +43,7 @@ namespace Assets._PC.Scripts.Core.Data.Board
             return false;
         }
 
-        public bool TryRemoveTile(TileData tile, out TileCellData targetCell)
+        public bool TryRemoveTile(TileData tile, out CellData targetCell)
         {
             targetCell = null;
             if (IsPositionValid(tile.Position))

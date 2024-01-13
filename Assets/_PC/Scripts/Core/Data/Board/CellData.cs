@@ -1,11 +1,11 @@
 ﻿namespace Assets._PC.Scripts.Core.Data.Board
 {
-    public class TileCellData
+    public class CellData
     {
         public GridPosition Position { get; private set; }
         public TileData Tile { get; set; }
 
-        public TileCellData(GridPosition position)
+        public CellData(GridPosition position)
         {
             Position = position;
         }

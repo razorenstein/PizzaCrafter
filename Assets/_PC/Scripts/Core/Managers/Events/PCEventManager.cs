@@ -30,7 +30,7 @@ namespace Assets._PC.Scripts.Core.Managers.Events
                 _eventTypeToListenersData.Remove(eventType);
         }
 
-        public void InvokeHOGEvent(PCEventType eventType, T dataToInvoke)
+        public void InvokeEvent(PCEventType eventType, T dataToInvoke)
         {
             if (!_eventTypeToListenersData.TryGetValue(eventType, out var value))
                 return;

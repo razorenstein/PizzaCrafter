@@ -1,7 +1,6 @@
 using Assets._PC.Scripts.Core.Data.Board;
 using Assets._PC.Scripts.Core.Data.Events;
 using Assets._PC.Scripts.Core.Managers.Events;
-using Assets._PC.Scripts.Gameplay.Managers;
 using UnityEngine;
 
 namespace Assets._PC.Scripts.Core.Managers

@@ -590,6 +590,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1025551246}
+  - component: {fileID: 1025551247}
   m_Layer: 5
   m_Name: Board
   m_TagString: Untagged
@@ -618,6 +619,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1025551247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025551245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cbdf0afb8ccd2043a80ebb77338a640, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tilePrefab: {fileID: 3443659146056226734, guid: 2b030f8ce93ade843bd514d2c66e0495,
+    type: 3}
+  _gridView: {fileID: 1678361770}
 --- !u!1 &1678361765
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,12 +744,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1678361765}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68dde411533981949acd77126be86c3a, type: 3}
+  m_Script: {fileID: 11500000, guid: 5150c727b739f874abd6e369154bbbfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _width: 5
-  _height: 5
-  _tilePrefab: {fileID: 8218234457765163294, guid: 1fe9d8bcd8bff8b4fbfb27c3eee5928c,
+  _cellPrefab: {fileID: 8218234457765163294, guid: 1fe9d8bcd8bff8b4fbfb27c3eee5928c,
     type: 3}
   _gridLayoutGroup: {fileID: 1678361769}
 --- !u!1660057539 &9223372036854775807
