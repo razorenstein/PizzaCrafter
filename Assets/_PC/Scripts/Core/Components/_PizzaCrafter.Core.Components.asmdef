@@ -2,7 +2,7 @@
     "name": "_PizzaCrafter.Core.Components",
     "rootNamespace": "",
     "references": [
-        "GUID:fc4da8642d1ee034aba92d7fb6a8215d"
+        "GUID:fc4c22b5ab737f14783bceb757087d06"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

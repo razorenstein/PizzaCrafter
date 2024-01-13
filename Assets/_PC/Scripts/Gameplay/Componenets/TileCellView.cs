@@ -5,7 +5,6 @@ using UnityEngine.UIElements;
 
 namespace Assets._PC.Scripts.Gameplay.Components
 {
-
     public class TileCellView : PCMonoBehaviour
     {
         [SerializeField]

@@ -10,7 +10,7 @@
             Position = position;
         }
 
-        public bool IsOccupied() => Tile == null;
+        public bool IsOccupied() => Tile != null;
         
     }
 }

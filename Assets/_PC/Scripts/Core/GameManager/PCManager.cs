@@ -1,4 +1,7 @@
 using Assets._PC.Scripts.Core.Data;
+using Assets._PC.Scripts.Core.Data.Events;
+using Assets._PC.Scripts.Core.Managers.Events;
+using Assets._PC.Scripts.Gameplay.Managers;
 using UnityEngine;
 
 namespace Assets._PC.Scripts.Core.Managers
@@ -10,23 +13,21 @@ namespace Assets._PC.Scripts.Core.Managers
 
         public static PCManager Instance { get; private set; }
 
+        //Core
+        public PCEventManager<PCBaseEventData> EventManager;
+
         //Gameplay
-        public GridManager GridManager;
         public BoardManager BoardManager;
 
         public PCManager()
         {
             if (Instance == null)
-            {
                 Instance = this;
-            }
             else
-            {
                 Debug.LogError($"{nameof(PCManager)}- Only One Appearance is valid");
-            }
 
-            GridManager = new GridManager(new GridSize(_boardRows, _boardCols));
-            BoardManager = new BoardManager();
+            EventManager = new PCEventManager<PCBaseEventData>();
+            BoardManager = new BoardManager(new GridSize(_boardRows, _boardCols));
         }
     }
 }

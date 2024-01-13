@@ -1,14 +1,16 @@
 ﻿using Assets._PC.Scripts.Core.Data;
 
-namespace Assets._PC.Scripts.Core.Managers
+namespace Assets._PC.Scripts.Gameplay.Managers
 {
     public class BoardManager
     {
         public TileData[] TilesState { get; private set; }
+        private Grid _grid;
 
-        public BoardManager()
+        public BoardManager(GridSize gridSize)
         {
-
+            _grid = new Grid(gridSize);
+            _grid.Initialize();
         }
 
         public bool TrySetTile(GridPosition position, ItemType itemType)
@@ -23,7 +25,7 @@ namespace Assets._PC.Scripts.Core.Managers
                 Position = position
             };
 
-            if (PCManager.Instance.GridManager.TrySetTile(tile, out var targetCell))
+            if (_grid.TrySetTile(tile, out var targetCell))
             {
                 tile.CellData = targetCell;
                 return true;

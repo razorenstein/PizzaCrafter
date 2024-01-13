@@ -4,7 +4,7 @@ using Assets._PC.Scripts.Gameplay.Components;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets._PC.Scripts.Gameplay.Managers
+namespace Assets._PC.Scripts.Gameplay.Components
 {
     public class GridView : PCMonoBehaviour
     {

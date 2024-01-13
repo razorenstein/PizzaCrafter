@@ -1,17 +1,18 @@
 ﻿using Assets._PC.Scripts.Core.Data;
 
-namespace Assets._PC.Scripts.Core.Managers
+namespace Assets._PC.Scripts.Core.Data
 {
-    public class GridManager
+    public class Grid
     {
         public TileCellData[,] CellsState { get; private set; }
         public GridSize GridSize { get; private set; }
 
-        public GridManager(GridSize gridSize)
+        public Grid(GridSize gridSize)
         {
             //MFManager.Instance.ConfigManager.GetConfig<MinesConfig>(OnConfigLoaded);  
             //LoadMinesData();
             GridSize = gridSize;
+            Initialize();
         }
 
         public void Initialize()
