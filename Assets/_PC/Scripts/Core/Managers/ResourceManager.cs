@@ -23,19 +23,23 @@ namespace Assets._PC.Scripts.Core.Managers
             {
                 Name = "Milk Bag",
                 Type = ResourceType.MilkBag,
-                IngredientType = IngredientType.Cheese
+                IngredientType = IngredientType.Cheese,
+                SpriteAddressableKey = "milk_resource"
             };
             var tomatoSack = new ResourceData()
             {
                 Name = "Tomato Sack",
                 Type = ResourceType.TomatoSack,
-                IngredientType = IngredientType.Cheese
+                IngredientType = IngredientType.Tomato,
+                SpriteAddressableKey = "tomato_resource"
             };
             var flourSack = new ResourceData()
             {
                 Name = "Flour Sack",
                 Type = ResourceType.FlourSack,
-                IngredientType = IngredientType.Cheese
+                IngredientType = IngredientType.Flour,
+                SpriteAddressableKey = "flour_resource"
+
             };
             Resources.Add(ResourceType.MilkBag, milkSack);
             Resources.Add(ResourceType.TomatoSack, tomatoSack);
@@ -49,7 +53,14 @@ namespace Assets._PC.Scripts.Core.Managers
                 var itemToProduce = new IngredientData
                 {
                     Type = resourceData.IngredientType,
-                    Level = 0
+                    SpriteAddressableKey = resourceData.IngredientType switch
+                    {
+                        IngredientType.Flour => "ingredient-flour-1",
+                        IngredientType.Cheese => "ingredient-cheese-1",
+                        IngredientType.Tomato => "ingredient-tomato-1",
+                        _ => throw new System.NotImplementedException(),
+                    },
+                    Level = 1
                 };
 
                 if (PCManager.Instance.BoardManager.TrySetTile(itemToProduce))
