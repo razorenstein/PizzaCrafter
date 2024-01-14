@@ -1,10 +1,9 @@
-﻿using Assets._PC.Scripts.Core.Data;
-using Assets._PC.Scripts.Core.Data.Board;
+﻿using Assets._PC.Scripts.Core.Data.Board;
 using Assets._PC.Scripts.Core.Data.Events;
-using System;
+using Assets._PC.Scripts.Core.Data.Ingredients;
+using log4net.Core;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using UnityEngine.VFX;
 
 namespace Assets._PC.Scripts.Core.Managers
 {
@@ -26,11 +25,11 @@ namespace Assets._PC.Scripts.Core.Managers
             Grid.Initialize();
         }
 
-        public bool TrySetTile(ItemData itemData)
+        public bool TrySetTile(IngredientData ingredient)
         {
             if (Grid.TryGetRandomEmptyCell(out var emptyCell))
             {
-                if (TrySetTile(emptyCell.Position, itemData))
+                if (TrySetTile(emptyCell.Position, ingredient))
                 {
                     return true;
                 }
@@ -39,11 +38,11 @@ namespace Assets._PC.Scripts.Core.Managers
             return false;
         }
 
-        public bool TrySetTile(GridPosition position, ItemData itemData)
+        public bool TrySetTile(GridPosition position, IngredientData ingredientData)
         {
             var tile = new TileData()
             {
-                Item = itemData,
+                Ingredient = ingredientData,
                 Position = position
             };
 

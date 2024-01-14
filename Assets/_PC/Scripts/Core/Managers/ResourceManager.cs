@@ -1,12 +1,7 @@
 ﻿using Assets._PC.Scripts.Core.Data;
-using Assets._PC.Scripts.Core.Data.Board;
+using Assets._PC.Scripts.Core.Data.Ingredients;
 using Assets._PC.Scripts.Core.Data.Resources;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assets._PC.Scripts.Core.Managers
 {
@@ -28,19 +23,19 @@ namespace Assets._PC.Scripts.Core.Managers
             {
                 Name = "Milk Bag",
                 Type = ResourceType.MilkBag,
-                ItemType = ItemType.Cheese
+                IngredientType = IngredientType.Cheese
             };
             var tomatoSack = new ResourceData()
             {
                 Name = "Tomato Sack",
                 Type = ResourceType.TomatoSack,
-                ItemType = ItemType.Cheese
+                IngredientType = IngredientType.Cheese
             };
             var flourSack = new ResourceData()
             {
                 Name = "Flour Sack",
                 Type = ResourceType.FlourSack,
-                ItemType = ItemType.Cheese
+                IngredientType = IngredientType.Cheese
             };
             Resources.Add(ResourceType.MilkBag, milkSack);
             Resources.Add(ResourceType.TomatoSack, tomatoSack);
@@ -51,18 +46,18 @@ namespace Assets._PC.Scripts.Core.Managers
         {
             if (Resources.TryGetValue(resourceType, out var resourceData))
             {
-                var itemToProduce = new ItemData
+                var itemToProduce = new IngredientData
                 {
-                    Type = resourceData.ItemType,
+                    Type = resourceData.IngredientType,
                     Level = 0
                 };
 
-                if (PCManager.Instance.BoardManager.TrySetTile(itemToProduce))               
+                if (PCManager.Instance.BoardManager.TrySetTile(itemToProduce))
                     return true;
-                
+
             }
 
-            return false;        
+            return false;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets._PC.Scripts.Core.Data
 {
-    public enum ItemType
+    public enum IngredientType
     {
         Cheese,
         Tomato, 

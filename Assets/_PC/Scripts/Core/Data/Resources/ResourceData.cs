@@ -10,6 +10,7 @@ namespace Assets._PC.Scripts.Core.Data.Resources
     {
         public string Name { get; set; }
         public ResourceType Type { get; set; }
-        public ItemType ItemType { get; set; }
+        public IngredientType IngredientType { get; set; }
+        public string SpriteAddressableKey { get; set; }
     }
 }
