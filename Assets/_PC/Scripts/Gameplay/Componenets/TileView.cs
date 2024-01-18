@@ -8,15 +8,25 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
 {
     public class TileView : PCMonoBehaviour
     {
-        private TileData _data;
+        public TileData Data;
+        public BoardView BoardView;
+        [SerializeField]
+        public RectTransform RectTransform;
         [SerializeField]
         private Image _image;
+        [SerializeField]
+        private CanvasGroup _canvasGroup;
 
-        public void Initialize(TileData data)
+        public void Initialize(TileData data, BoardView board)
         {
-            _data = data;
+            Data = data;
+            BoardView = board;
             LoadSprite(data.Ingredient.SpriteAddressableKey);
-            Debug.Log($"Initialized tile at {_data.Position.Row}, {_data.Position.Column}");
+        }
+
+        public void OnDragDrop(CellData cellData)
+        {
+            BoardView.OnTileDragDrop(cellData);
         }
 
         private void LoadSprite(string addressableKey)

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6211130020349659569}
   - component: {fileID: 2755700331963539238}
   - component: {fileID: 694685520325379372}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 8835950687033680201}
   - component: {fileID: 3970234150115605044}
   - component: {fileID: 8218234457765163294}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Cell
   m_TagString: Untagged
   m_Icon: {fileID: 0}

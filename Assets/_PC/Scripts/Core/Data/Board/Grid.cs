@@ -1,8 +1,10 @@
 ﻿using Assets._PC.Scripts.Core.Data;
+using Codice.Client.Common;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Assets._PC.Scripts.Core.Data.Board
 {
@@ -37,35 +39,93 @@ namespace Assets._PC.Scripts.Core.Data.Board
             }
         }
 
-        public bool TrySetTile(TileData tile, out CellData targetCell)
+        public CellData GetCellData(GridPosition position)
+        {
+            if (IsPositionValid(position))
+            {
+                return CellsState[position.Row, position.Column];
+            }
+
+            throw new System.Exception("inbalid grid position selected");
+        }
+
+        public bool TrySetNewTile(TileData tile, GridPosition position, out CellData targetCell)
         {
             targetCell = null;
 
-            if (IsPositionValid(tile.Position))
+            if (IsPositionValid(position))
             {
-                targetCell = CellsState[tile.Position.Row, tile.Position.Column];
+                targetCell = CellsState[position.Row, position.Column];
                 if (!targetCell.IsOccupied())
                 {
                     targetCell.Tile = tile;
+                    tile.CellData = targetCell;
                     _emptyCells.Remove(targetCell);
                     return true;
                 }
             }
+
             return false;
         }
 
-        public bool TryRemoveTile(TileData tile, out CellData targetCell)
+        public bool TryRemoveTile(GridPosition position, out CellData targetCell)
         {
             targetCell = null;
-            if (IsPositionValid(tile.Position))
+            if (IsPositionValid(position))
             {
-                targetCell = CellsState[tile.Position.Row, tile.Position.Column];
+                targetCell = CellsState[position.Row, position.Column];
                 if (targetCell.IsOccupied())
                 {
+                    targetCell.Tile.CellData = null;
                     targetCell.Tile = null;
                     _emptyCells.Add(targetCell);
                     return true;
                 }
+            }
+
+            return false;
+        }
+
+        public bool TryMoveTile(TileData tile, GridPosition targetPosition, out CellData targetCell)
+        {
+            targetCell = null;
+
+            if (IsPositionValid(targetPosition))
+            {
+                var originCell = CellsState[tile.CellData.Position.Row, tile.CellData.Position.Column];
+                targetCell = CellsState[targetPosition.Row, targetPosition.Column];
+
+                originCell.Tile = null;
+                targetCell.Tile = tile;
+                tile.CellData = targetCell;
+                _emptyCells.Remove(targetCell);
+                _emptyCells.Add(originCell);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool TrySwitchTilesPositions(GridPosition firstPosition, GridPosition secondPosition)
+        {
+            if (IsPositionValid(firstPosition) && IsPositionValid(secondPosition))
+            {
+                var firstCell = CellsState[firstPosition.Row, firstPosition.Column];
+                var secondCell = CellsState[secondPosition.Row, secondPosition.Column];
+                var firstCellTile = firstCell.Tile;
+                var secondCellTile = secondCell.Tile;
+
+                // Swap tiles
+                firstCell.Tile = secondCellTile;
+                secondCell.Tile = firstCellTile;
+
+                // Update the CellData on the swapped tiles to point to their new cells
+                firstCell.Tile.CellData = firstCell;
+                secondCell.Tile.CellData = secondCell;
+
+
+                return true;
             }
 
             return false;
@@ -96,7 +156,6 @@ namespace Assets._PC.Scripts.Core.Data.Board
 
         private bool IsPositionValid(GridPosition position) =>
             position.Row < GridSize.Rows && position.Column < GridSize.Columns;
-
 
     }
 }

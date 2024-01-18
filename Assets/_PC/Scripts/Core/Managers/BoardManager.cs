@@ -1,9 +1,11 @@
 ﻿using Assets._PC.Scripts.Core.Data.Board;
+using Assets._PC.Scripts.Core.Data.Enums;
 using Assets._PC.Scripts.Core.Data.Events;
 using Assets._PC.Scripts.Core.Data.Ingredients;
 using log4net.Core;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using UnityEngine.UIElements;
 
 namespace Assets._PC.Scripts.Core.Managers
 {
@@ -11,6 +13,7 @@ namespace Assets._PC.Scripts.Core.Managers
     {
         public ICollection<TileData> TilesState { get; private set; }
         public Grid Grid { get; private set; }
+
 
         public BoardManager(GridSize gridSize)
         {
@@ -25,12 +28,37 @@ namespace Assets._PC.Scripts.Core.Managers
             Grid.Initialize();
         }
 
-        public bool TrySetTile(IngredientData ingredient)
+        public int GetBoardCellsCount() => Grid.GridSize.Rows * Grid.GridSize.Columns;
+
+        public bool TryMoveTile(TileData tile, GridPosition targetPosition, out TileMovementType movementType)
         {
-            if (Grid.TryGetRandomEmptyCell(out var emptyCell))
+            movementType = TileMovementType.None;
+            var targetCell = Grid.GetCellData(targetPosition);
+            var originCell = tile.CellData;
+
+            if (targetCell.IsOccupied())
             {
-                if (TrySetTile(emptyCell.Position, ingredient))
+                if (Grid.TrySwitchTilesPositions(tile.CellData.Position, targetPosition))
                 {
+                    movementType = TileMovementType.MoveToOccupiedCell;
+                    PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnTilesPositionUpdate, new TilesPositionUpdateEventData()
+                    {
+                        UpdatedTiles = new TileData[2]{ originCell.Tile, targetCell.Tile }
+                    });
+
+                    return true;
+                }
+            }
+            else
+            {
+                if (Grid.TryMoveTile(tile, targetPosition, out targetCell))
+                {
+                    movementType = TileMovementType.MoveToEmptyCell;
+                    PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnTilesPositionUpdate, new TilesPositionUpdateEventData()
+                    {
+                        UpdatedTiles = new TileData[1] { tile }
+                    });
+
                     return true;
                 }
             }
@@ -38,24 +66,30 @@ namespace Assets._PC.Scripts.Core.Managers
             return false;
         }
 
-        public bool TrySetTile(GridPosition position, IngredientData ingredientData)
+        public bool TrySetTile(TileData tile, GridPosition position, bool isTileCreated)
         {
-            var tile = new TileData()
+            if (Grid.TrySetNewTile(tile, position, out var targetCell))
             {
-                Ingredient = ingredientData,
-                Position = position
-            };
-
-            if (Grid.TrySetTile(tile, out var targetCell))
-            {
-                tile.CellData = targetCell;
                 TilesState.Add(tile);
-                PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnTileSet,
-                    new TileSetOnCellEventData
-                    {
-                        TileData = tile
-                    });
+                PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnTileCreated, new TileCreatedEventData()
+                {
+                    Tile = tile
+                });
+
                 return true;
+            }
+
+            return false;
+        }
+
+        public bool TrySetTileRandomally(TileData tile)
+        {
+            if (Grid.TryGetRandomEmptyCell(out var emptyCell))
+            {
+                if (TrySetTile(tile, emptyCell.Position, isTileCreated: true))
+                {
+                    return true;
+                }
             }
 
             return false;

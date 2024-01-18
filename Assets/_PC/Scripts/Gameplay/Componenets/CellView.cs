@@ -1,28 +1,27 @@
 using Assets._PC.Scripts.Core.Components;
+using Assets._PC.Scripts.Gameplay.Componenets;
+using Assets._PC.Scripts.Gameplay.Componenets.Helpers;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 namespace Assets._PC.Scripts.Core.Data.Board
 {
-    public class CellView : PCMonoBehaviour
+    public class CellView : PCMonoBehaviour, IDropHandler
     {
+        public CellData Data;
         [SerializeField]
         private Image _item;
-        private CellData _data;
 
         public void Initialize(CellData data)
         {
-            _data = data;
-            Debug.Log($"Initialized cell at {_data.Position.Row}, {_data.Position.Column}");
+            Data = data;
+            Debug.Log($"Initialized cell at {Data.Position.Row}, {Data.Position.Column}");
         }
 
-        private void OnMouseDown()
+        public void OnDrop(PointerEventData eventData)
         {
-            // Handle the click event, like selecting the tile or placing an ingredient
-            Debug.Log($"Tile clicked.");
-
-            // Perform actions based on game logic, e.g., placing an ingredient
-            // This is where you would typically interact with other game systems
+            eventData.pointerDrag.SendMessage(nameof(TileView.OnDragDrop), Data);
         }
     }
 }

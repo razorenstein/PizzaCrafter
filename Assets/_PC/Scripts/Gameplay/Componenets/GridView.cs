@@ -32,7 +32,7 @@ namespace Assets._PC.Scripts.Gameplay.Components
                     var cell = Instantiate(_cellPrefab, _gridLayoutGroup.transform);
                     var cellData = cellsData[row, column];
                     cell.Initialize(cellData);
-                    _gridView[column, row] = cell;
+                    _gridView[row, column] = cell;
                     Debug.Log($"cell position is{cell.transform.position.x},{cell.transform.position.y},{cell.transform.position.z}");
                 }
             }

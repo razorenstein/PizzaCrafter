@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Assets._PC.Scripts.Core.Data.Events
 {
-    public class TileSetOnCellEventData : PCBaseEventData
+    public class TileCreatedEventData : PCBaseEventData
     {
-        public TileData TileData { get; set; }
+        public TileData Tile { get; set; }
     }
 }

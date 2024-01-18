@@ -1,4 +1,5 @@
 ﻿using Assets._PC.Scripts.Core.Data;
+using Assets._PC.Scripts.Core.Data.Board;
 using Assets._PC.Scripts.Core.Data.Ingredients;
 using Assets._PC.Scripts.Core.Data.Resources;
 using System.Collections.Generic;
@@ -50,7 +51,7 @@ namespace Assets._PC.Scripts.Core.Managers
         {
             if (Resources.TryGetValue(resourceType, out var resourceData))
             {
-                var itemToProduce = new IngredientData
+                var itemToProduce = new Ingredient
                 {
                     Type = resourceData.IngredientType,
                     SpriteAddressableKey = resourceData.IngredientType switch
@@ -63,8 +64,10 @@ namespace Assets._PC.Scripts.Core.Managers
                     Level = 1
                 };
 
-                if (PCManager.Instance.BoardManager.TrySetTile(itemToProduce))
-                    return true;
+
+
+                if (PCManager.Instance.BoardManager.TrySetTileRandomally(new TileData { Ingredient = itemToProduce }))
+                   return true;
 
             }
 

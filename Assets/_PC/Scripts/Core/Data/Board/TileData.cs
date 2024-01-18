@@ -1,11 +1,14 @@
 ﻿using Assets._PC.Scripts.Core.Data.Ingredients;
+using System;
+using UnityEditor;
+using UnityEngine.Scripting;
 
 namespace Assets._PC.Scripts.Core.Data.Board
 {
     public class TileData
     {
-        public GridPosition Position { get; set; }
+        public GUID ID { get; private set; }
         public CellData CellData { get; set; }
-        public IngredientData Ingredient { get; set; }
+        public Ingredient Ingredient { get; set; }
     }
 }

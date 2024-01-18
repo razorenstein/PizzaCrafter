@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets._PC.Scripts.Core.Data.Events
+namespace Assets._PC.Scripts.Core.Data.Enums
 {
-    public enum PCEventType
+    public enum PoolType
     {
-        OnTileCreated,
-        OnTilesPositionUpdate
+        Tile
     }
 }

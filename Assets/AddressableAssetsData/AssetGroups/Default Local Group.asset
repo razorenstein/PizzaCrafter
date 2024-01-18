@@ -53,6 +53,24 @@ MonoBehaviour:
     m_SerializedLabels:
     - Ingredients
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8ed67d2e3d9a7f249addaa20291137a4
+    m_Address: Tile
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Prefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9bfc7262a34fc2e4fa2ec518e5f0fd02
+    m_Address: Resource
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Prefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1fe9d8bcd8bff8b4fbfb27c3eee5928c
+    m_Address: Cell
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Prefabs
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d06ad09b22fc4b8469e5c0e659cdfd11, type: 2}
   m_SchemaSet:
