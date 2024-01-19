@@ -8,9 +8,9 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Helpers
 {
     public class AddressablesHelper : PCMonoBehaviour
     {
-        public static void TryLoadAddressable(string address, Action<Sprite> onSuccess, Action<string> onFailure)
+        public static void TryLoadAddressable(string addressableKey, Action<Sprite> onSuccess, Action<string> onFailure)
         {
-            Addressables.LoadAssetAsync<Sprite>(address).Completed += onHandle =>
+            Addressables.LoadAssetAsync<Sprite>(addressableKey).Completed += onHandle =>
             {
                 if (onHandle.Status == AsyncOperationStatus.Succeeded)
                 {
@@ -19,7 +19,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Helpers
                 }
                 else
                 {
-                    onFailure?.Invoke($"Failed to load sprite with address: {address}"); // Call the failure callback
+                    onFailure?.Invoke($"Failed to load sprite with address: {addressableKey}"); // Call the failure callback
                 }
             };
         }

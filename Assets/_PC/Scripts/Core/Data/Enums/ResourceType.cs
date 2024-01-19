@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Assets._PC.Scripts.Core.Data.Enums
 {
-    public enum PoolType
+    public enum ResourceType
     {
-        IngredientTile,
-        ResourceTile,
-        Cell
+        MilkBag,
+        FlourSack,
+        TomatoSack
     }
 }

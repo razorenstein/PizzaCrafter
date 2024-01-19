@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets._PC.Scripts.Core.Data
+namespace Assets._PC.Scripts.Gameplay.Componenets
 {
-    public enum IngredientType
+    public class IngredientTileView : TileView
     {
-        Cheese,
-        Tomato, 
-        Flour
+
     }
 }

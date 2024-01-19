@@ -66,7 +66,7 @@ namespace Assets._PC.Scripts.Core.Managers
             return false;
         }
 
-        public bool TrySetTile(TileData tile, GridPosition position, bool isTileCreated)
+        public bool TrySetTile(TileData tile, GridPosition position)
         {
             if (Grid.TrySetNewTile(tile, position, out var targetCell))
             {
@@ -86,7 +86,7 @@ namespace Assets._PC.Scripts.Core.Managers
         {
             if (Grid.TryGetRandomEmptyCell(out var emptyCell))
             {
-                if (TrySetTile(tile, emptyCell.Position, isTileCreated: true))
+                if (TrySetTile(tile, emptyCell.Position))
                 {
                     return true;
                 }

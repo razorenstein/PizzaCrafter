@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine.EventSystems;
 using UnityEngine;
+using Assets._PC.Scripts.Core.Managers;
 
 namespace Assets._PC.Scripts.Gameplay.Componenets.Helpers
 {
@@ -15,16 +16,19 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Helpers
         private TileView _itemToDrag;
         [SerializeField]
         private CanvasGroup _canvasGroup;
+        private BoardView _boardView;
         private Vector3 _startPosition;
         private Transform _startParent;
         private Transform _dragParent;
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            _itemToDrag.BoardView.SetDraggedTile(_itemToDrag);
+
+            _boardView = BoardView.Instance;
+            _boardView.SetDraggedTile(_itemToDrag);
             _startParent = _itemToDrag.transform.parent;
             //in order to render it above all cells for the drag
-            _dragParent = _itemToDrag.BoardView.transform;
+            _dragParent = _boardView.transform;
             _canvasGroup.blocksRaycasts = false;
             _startPosition = _itemToDrag.transform.position;
         }
@@ -44,7 +48,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Helpers
                 _itemToDrag.transform.SetParent(_startParent);
             }
 
-            _itemToDrag.BoardView.RemoveDraggedTile();
+            _boardView.RemoveDraggedTile();
         }
     }
 }

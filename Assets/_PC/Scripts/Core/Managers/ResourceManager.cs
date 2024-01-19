@@ -1,6 +1,8 @@
 ﻿using Assets._PC.Scripts.Core.Data;
 using Assets._PC.Scripts.Core.Data.Board;
+using Assets._PC.Scripts.Core.Data.Enums;
 using Assets._PC.Scripts.Core.Data.Ingredients;
+using Assets._PC.Scripts.Core.Data.Ingredients.Abstract;
 using Assets._PC.Scripts.Core.Data.Resources;
 using System.Collections.Generic;
 
@@ -14,7 +16,6 @@ namespace Assets._PC.Scripts.Core.Managers
         public ResourceManager()
         {
             Resources = new Dictionary<ResourceType, ResourceData>();
-
             Initialize();
         }
 
@@ -23,21 +24,24 @@ namespace Assets._PC.Scripts.Core.Managers
             var milkSack = new ResourceData()
             {
                 Name = "Milk Bag",
-                Type = ResourceType.MilkBag,
+                ResourceType = ResourceType.MilkBag,
+                Type = TileType.Resource,
                 IngredientType = IngredientType.Cheese,
                 SpriteAddressableKey = "milk_resource"
             };
             var tomatoSack = new ResourceData()
             {
                 Name = "Tomato Sack",
-                Type = ResourceType.TomatoSack,
+                ResourceType = ResourceType.TomatoSack,
+                Type = TileType.Resource,
                 IngredientType = IngredientType.Tomato,
                 SpriteAddressableKey = "tomato_resource"
             };
             var flourSack = new ResourceData()
             {
                 Name = "Flour Sack",
-                Type = ResourceType.FlourSack,
+                ResourceType = ResourceType.FlourSack,
+                Type = TileType.Resource,
                 IngredientType = IngredientType.Flour,
                 SpriteAddressableKey = "flour_resource"
 
@@ -45,30 +49,22 @@ namespace Assets._PC.Scripts.Core.Managers
             Resources.Add(ResourceType.MilkBag, milkSack);
             Resources.Add(ResourceType.TomatoSack, tomatoSack);
             Resources.Add(ResourceType.FlourSack, flourSack);
+
+            PCManager.Instance.BoardManager.TrySetTileRandomally(milkSack);
+            PCManager.Instance.BoardManager.TrySetTileRandomally(tomatoSack);
+            PCManager.Instance.BoardManager.TrySetTileRandomally(flourSack);
+
         }
 
-        public bool TryGetResourceLoot(ResourceType resourceType)
+        public bool TryLootResource(ResourceType resourceType)
         {
             if (Resources.TryGetValue(resourceType, out var resourceData))
             {
-                var itemToProduce = new Ingredient
+                if(PCManager.Instance.IngredientsManager.TryGetIngredient(resourceData.IngredientType, 0, out var ingredientData))
                 {
-                    Type = resourceData.IngredientType,
-                    SpriteAddressableKey = resourceData.IngredientType switch
-                    {
-                        IngredientType.Flour => "ingredient-flour-1",
-                        IngredientType.Cheese => "ingredient-cheese-1",
-                        IngredientType.Tomato => "ingredient-tomato-1",
-                        _ => throw new System.NotImplementedException(),
-                    },
-                    Level = 1
-                };
-
-
-
-                if (PCManager.Instance.BoardManager.TrySetTileRandomally(new TileData { Ingredient = itemToProduce }))
-                   return true;
-
+                    if (PCManager.Instance.BoardManager.TrySetTileRandomally(ingredientData))
+                        return true;
+                }
             }
 
             return false;

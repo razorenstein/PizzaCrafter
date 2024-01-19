@@ -14,12 +14,16 @@ namespace Assets._PC.Scripts.Core.Managers
 
         //Core
         public PCEventManager<PCBaseEventData> EventManager;
+        public ConfigurationManager ConfigurationManager;
+        public FactoryManager FactoryManager;
+        public PoolManager PoolManager;
 
         //Gameplay
         public BoardManager BoardManager;
         public ResourceManager ResourceManager;
-        public FactoryManager FactoryManager;
-        public PoolManager PoolManager;
+        public IngredientsManager IngredientsManager;
+
+
 
         public PCManager()
         {
@@ -29,10 +33,13 @@ namespace Assets._PC.Scripts.Core.Managers
                 Debug.LogError($"{nameof(PCManager)}- Only One Appearance is valid");
 
             EventManager = new PCEventManager<PCBaseEventData>();
-            BoardManager = new BoardManager(new GridSize(_boardRows, _boardCols));
-            ResourceManager = new ResourceManager();
+            ConfigurationManager = new ConfigurationManager();
             PoolManager = new PoolManager();
             FactoryManager = new FactoryManager();
+
+            BoardManager = new BoardManager(new GridSize(_boardRows, _boardCols));
+            ResourceManager = new ResourceManager();
+            IngredientsManager = new IngredientsManager();
         }
     }
 }

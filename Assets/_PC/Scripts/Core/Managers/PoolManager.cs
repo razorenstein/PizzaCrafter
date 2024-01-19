@@ -1,5 +1,7 @@
 ﻿using Assets._PC.Scripts.Core.Data.Enums;
+using Assets._PC.Scripts.Core.Data.Events;
 using Assets._PC.Scripts.Core.Data.Pool;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,17 +14,23 @@ namespace Assets._PC.Scripts.Core.Managers
         private GameObject _poolsHolder;
         private static string _poolsHolderName = "PoolsHolder";
 
-        private GameObject GetPoolsHolder() => _poolsHolder ?? new GameObject(_poolsHolderName);
+        private GameObject GetPoolsHolder() 
+        {
+            _poolsHolder = _poolsHolder != null ? _poolsHolder : new GameObject(_poolsHolderName);
+            return _poolsHolder;
+        }
         
         public async void InitPool<T>(PoolType poolType, int amount) where T : Component
         {
-            var addressableKey = PoolClassTypeToAddressableName.Map(poolType);
+            
+            var addressableKey = PoolTypesHelper.Map(poolType);
 
             var generateObjects = await PCManager.Instance.FactoryManager.GenerateObjects<T>(addressableKey, amount);
 
             if (generateObjects == null || !generateObjects.Any())
             {
                 //PCManager.MonitorManager.ReportException("Failed to generate objects.");
+                Debug.Log("Failed to generate objects.");
                 return;
             }
 
@@ -30,6 +38,11 @@ namespace Assets._PC.Scripts.Core.Managers
             poolHolder.transform.SetParent(GetPoolsHolder().transform);
 
             Pools[poolType] = new PoolData(generateObjects.ToArray(), poolHolder);
+
+            PCManager.Instance.EventManager.InvokeEvent(PCEventType.PoolReady, new PoolReadyEventData
+            {
+                Type = poolType,
+            });
         }
 
         public T GetFromPool<T>(PoolType poolType) where T : Component

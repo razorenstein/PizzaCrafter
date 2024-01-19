@@ -2,27 +2,34 @@
 using Assets._PC.Scripts.Core.Data.Board;
 using Assets._PC.Scripts.Core.Data.Enums;
 using Assets._PC.Scripts.Core.Data.Events;
-using Assets._PC.Scripts.Gameplay.Componenets.Helpers;
+using Assets._PC.Scripts.Core.Data.Pool;
+using Assets._PC.Scripts.Core.Managers;
+using Assets._PC.Scripts.Gameplay.Componenets.Spawners;
 using Assets._PC.Scripts.Gameplay.Components;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace Assets._PC.Scripts.Gameplay.Componenets
 {
     public class BoardView : PCMonoBehaviour
     {
+        public static BoardView Instance { get; private set; }
         private Dictionary<GridPosition, TileView> _tilesState;
         [SerializeField]
-        private TileView _tilePrefab;
-        [SerializeField]
         private GridView _gridView;
+        [SerializeField]
+        private TileSpawnerManager _tileSpawnerManager;
         private TileView _currentDraggedTile;
 
         private void Start()
         {
-            Manager.PoolManager.InitPool<TileView>(PoolType.Tile, Manager.BoardManager.GetBoardCellsCount());
+            if (Instance == null)
+                Instance = this;
+            else
+                Debug.LogError($"{nameof(BoardView)}- Only One Appearance is valid");
+
             _tilesState = new Dictionary<GridPosition, TileView>();
             _currentDraggedTile = null;
             Initialize();
@@ -32,7 +39,10 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
         {
             _gridView.Initialize();
             RegisterEventListeners();
-            InitializeTiles();
+            _tileSpawnerManager.Initialize(_gridView);
+            InitializeTilesState();
+            // InitializeTiles();
+
         }
 
         public void SetDraggedTile(TileView tile) => _currentDraggedTile = tile;
@@ -61,12 +71,12 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             }
         }
 
-        private void InitializeTiles()
+        private void SpawnTiles(TileType tileType)
         {
-            InitializeTilesState();
-            foreach (var tileData in Manager.BoardManager.TilesState)
+            var spawnedTiles = _tileSpawnerManager.SpawnTiles(tileType);
+            foreach (var spawnedTile in spawnedTiles)
             {
-                CreateTile(tileData);
+                _tilesState[spawnedTile.Data.CellData.Position] =  spawnedTile;
             }
         }
 
@@ -84,10 +94,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
 
         private void CreateTile(TileData tileData)
         {
-            var cell = _gridView.GetCell(tileData.CellData.Position);
-            var tile = Manager.PoolManager.GetFromPool<TileView>(PoolType.Tile);
-            tile.transform.SetParent(cell.transform, false);
-            tile.Initialize(tileData, this);
+            var tile = _tileSpawnerManager.CreateTile(tileData);
             _tilesState[tileData.CellData.Position] = tile;
         }
 
@@ -106,14 +113,23 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             CreateTile(eventData.Tile);
         }
 
+        private void OnPoolReady(PCBaseEventData baseEventData)
+        {
+            var eventData = (PoolReadyEventData)baseEventData;
+            SpawnTiles(PoolTypesHelper.MapToTileType(eventData.Type));
+        }
+
         private void RegisterEventListeners()
         {
             Manager.EventManager.AddListener(PCEventType.OnTileCreated, OnTileCreated);
+            Manager.EventManager.AddListener(PCEventType.PoolReady, OnPoolReady);
         }
+
 
         private void UnRegisterEventListeners()
         {
             Manager.EventManager.RemoveListener(PCEventType.OnTileCreated, OnTileCreated);
+            Manager.EventManager.RemoveListener(PCEventType.PoolReady, OnPoolReady);
         }
 
         private void OnDestroy()

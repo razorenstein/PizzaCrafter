@@ -90,6 +90,7 @@ MonoBehaviour:
     - Resources
     - Ingredients
     - Prefabs
+    - Tiles
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: e0a2637d27bc1494abf944665d871603, type: 2}

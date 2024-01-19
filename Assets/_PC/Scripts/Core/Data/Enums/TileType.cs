@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets._PC.Scripts.Core.Data.Resources
+namespace Assets._PC.Scripts.Core.Data.Enums
 {
-    public enum ResourceType
+    public enum TileType
     {
-        MilkBag,
-        FlourSack,
-        TomatoSack
+        Resource,
+        Ingredient
     }
 }

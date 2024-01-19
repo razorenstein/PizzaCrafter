@@ -1,36 +1,35 @@
-﻿using Assets._PC.Scripts.Core.Data.Enums;
-using Assets._PC.Scripts.Core.Data.Pool;
+﻿using Assets._PC.Scripts.Core.Data.Board;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using static UnityEditor.MaterialProperty;
 
 namespace Assets._PC.Scripts.Core.Managers
 {
-    public class FactoryManager 
-    {   
+    public class FactoryManager
+    {
         public async Task<List<T>> GenerateObjects<T>(string addressableKey, int amount) where T : Component
         {
-            var createdObjects = new List<T>();
+            var created = new List<T>();
 
-            var originalObject = await GenerateObjectAsync<T>(addressableKey);
-            if (originalObject == null)
+            var original = await GenerateObjectAsync<T>(addressableKey);
+
+            if (original == null)
+            {
                 return null;
+            }
 
-            createdObjects.Add(originalObject);
+            created.Add(original);
 
             for (var i = 1; i < amount; i++)
             {
-                var newCreated = GameObject.Instantiate(originalObject);
-                createdObjects.Add(newCreated);
+                var newCreated = GameObject.Instantiate(original);
+                created.Add(newCreated);
             }
 
-            return createdObjects;
+            return created;
         }
 
         private async Task<T> GenerateObjectAsync<T>(string addressableKey) where T : Component
@@ -40,8 +39,8 @@ namespace Assets._PC.Scripts.Core.Managers
 
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
-                var originalObject = handle.Result;
-                return originalObject.GetComponent<T>();
+                var original = handle.Result;
+                return original.GetComponent<T>();
             }
 
             //Manager.MonitorManager.ReportException($"Failed to load asset with key: {addressableKey}");

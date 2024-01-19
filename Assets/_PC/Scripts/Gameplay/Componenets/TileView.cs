@@ -6,27 +6,25 @@ using UnityEngine.UI;
 
 namespace Assets._PC.Scripts.Gameplay.Componenets
 {
-    public class TileView : PCMonoBehaviour
+    public abstract class TileView : PCMonoBehaviour
     {
         public TileData Data;
-        public BoardView BoardView;
         [SerializeField]
         public RectTransform RectTransform;
         [SerializeField]
-        private Image _image;
+        protected Image _image;
         [SerializeField]
-        private CanvasGroup _canvasGroup;
+        protected CanvasGroup _canvasGroup;
 
-        public void Initialize(TileData data, BoardView board)
+        public virtual void Initialize(TileData data)
         {
             Data = data;
-            BoardView = board;
-            LoadSprite(data.Ingredient.SpriteAddressableKey);
+            LoadSprite(data.SpriteAddressableKey);
         }
 
         public void OnDragDrop(CellData cellData)
         {
-            BoardView.OnTileDragDrop(cellData);
+            BoardView.Instance.OnTileDragDrop(cellData);
         }
 
         private void LoadSprite(string addressableKey)
