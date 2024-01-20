@@ -1,15 +1,12 @@
 ﻿using Assets._PC.Scripts.Core.Components;
-using Assets._PC.Scripts.Core.Data.Board;
 using Assets._PC.Scripts.Core.Data.Enums;
 using Assets._PC.Scripts.Core.Data.Events;
 using Assets._PC.Scripts.Core.Data.Pool;
-using Assets._PC.Scripts.Core.Managers;
 using Assets._PC.Scripts.Gameplay.Componenets.Spawners;
 using Assets._PC.Scripts.Gameplay.Components;
-using System;
+using Assets._PC.Scripts.Core.Data.Board;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Assets._PC.Scripts.Gameplay.Componenets
 {
@@ -57,9 +54,10 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             {
                 switch (movementType)
                 {
-                    case TileMovementType.MoveToEmptyCell:
-                        UpdateTilePosition(_currentDraggedTile, originCell, targetCell, true);
-                        break;
+                    //case TileMovementType.MergeTiles:
+                    //    var mergedTile = _tilesState[targetCell.Data.Position];
+                    //    RemoveTile()
+                    //    break;
 
                     case TileMovementType.MoveToOccupiedCell:
 
@@ -67,6 +65,12 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
                         UpdateTilePosition(tileOnTargetCell, targetCell, originCell, false);
                         UpdateTilePosition(_currentDraggedTile, originCell, targetCell, false);
                         break;
+
+                    case TileMovementType.MoveToEmptyCell:
+                        UpdateTilePosition(_currentDraggedTile, originCell, targetCell, true);
+                        break;
+
+
                 }
             }
         }
@@ -76,7 +80,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             var spawnedTiles = _tileSpawnerManager.SpawnTiles(tileType);
             foreach (var spawnedTile in spawnedTiles)
             {
-                _tilesState[spawnedTile.Data.CellData.Position] =  spawnedTile;
+                _tilesState[spawnedTile.Data.CellData.Position] = spawnedTile;
             }
         }
 
@@ -98,6 +102,12 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             _tilesState[tileData.CellData.Position] = tile;
         }
 
+        private void RemoveTile(TileData tile)
+        {
+            _tileSpawnerManager.RemoveTile(tile, _tilesState[tile.CellData.Position]);
+            _tilesState[tile.CellData.Position] = null;
+        }
+
         private void UpdateTilePosition(TileView tile, CellView originCell, CellView targetCell, bool isMoveToEmptyCell)
         {
             tile.transform.SetParent(targetCell.transform);
@@ -113,6 +123,12 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             CreateTile(eventData.Tile);
         }
 
+        private void OnTileRemoved(PCBaseEventData baseEventData)
+        {
+            var eventData = (TileRemovedEventData)baseEventData;
+            RemoveTile(eventData.Tile);
+        }
+
         private void OnPoolReady(PCBaseEventData baseEventData)
         {
             var eventData = (PoolReadyEventData)baseEventData;
@@ -122,13 +138,16 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
         private void RegisterEventListeners()
         {
             Manager.EventManager.AddListener(PCEventType.OnTileCreated, OnTileCreated);
+            Manager.EventManager.AddListener(PCEventType.OnTileRemoved, OnTileRemoved);
             Manager.EventManager.AddListener(PCEventType.PoolReady, OnPoolReady);
         }
+
 
 
         private void UnRegisterEventListeners()
         {
             Manager.EventManager.RemoveListener(PCEventType.OnTileCreated, OnTileCreated);
+            Manager.EventManager.RemoveListener(PCEventType.OnTileRemoved, OnTileRemoved);
             Manager.EventManager.RemoveListener(PCEventType.PoolReady, OnPoolReady);
         }
 

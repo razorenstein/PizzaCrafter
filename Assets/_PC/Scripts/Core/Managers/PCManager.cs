@@ -19,11 +19,9 @@ namespace Assets._PC.Scripts.Core.Managers
         public PoolManager PoolManager;
 
         //Gameplay
-        public BoardManager BoardManager;
         public ResourceManager ResourceManager;
         public IngredientsManager IngredientsManager;
-
-
+        public BoardManager BoardManager;
 
         public PCManager()
         {
@@ -37,9 +35,9 @@ namespace Assets._PC.Scripts.Core.Managers
             PoolManager = new PoolManager();
             FactoryManager = new FactoryManager();
 
-            BoardManager = new BoardManager(new GridSize(_boardRows, _boardCols));
             ResourceManager = new ResourceManager();
             IngredientsManager = new IngredientsManager();
+            BoardManager = new BoardManager(new GridSize(_boardRows, _boardCols));
         }
     }
 }

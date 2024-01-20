@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfc76f260291ab6429994e003ddbcccc, type: 3}
+  m_Name: IngredientsDataConfig
+  m_EditorClassIdentifier: 
+  Text: "{\r\n  \"Ingredients\": {\r\n    \"0\": {\r\n      \"LevelData\": {\r\n       
+    \"1\": {\r\n          \"Type\": 0,\r\n          \"Level\": 1,\r\n          \"MaxLevel\":
+    3,\r\n          \"SpriteAddressableKey\": \"ingredient-cheese-1\"\r\n       
+    },\r\n        \"2\": {\r\n          \"Type\": 0,\r\n          \"Level\": 2,\r\n         
+    \"MaxLevel\": 3,\r\n          \"SpriteAddressableKey\": \"ingredient-cheese-2\"\r\n       
+    },\r\n        \"3\": {\r\n          \"Type\": 0,\r\n          \"Level\": 3,\r\n         
+    \"MaxLevel\": 3,\r\n          \"SpriteAddressableKey\": \"ingredient-cheese-3\"\r\n       
+    }\r\n      }\r\n    },\r\n    \"1\": {\r\n      \"LevelData\": {\r\n        \"1\":
+    {\r\n          \"Type\": 1,\r\n          \"Level\": 1,\r\n          \"MaxLevel\":
+    2,\r\n          \"SpriteAddressableKey\": \"ingredient-tomato-1\"\r\n       
+    },\r\n        \"2\": {\r\n          \"Type\": 1,\r\n          \"Level\": 2,\r\n         
+    \"MaxLevel\": 2,\r\n          \"SpriteAddressableKey\": \"ingredient-tomato-2\"\r\n       
+    }\r\n      }\r\n    },\r\n    \"2\": {\r\n      \"LevelData\": {\r\n        \"1\":
+    {\r\n          \"Type\": 2,\r\n          \"Level\": 1,\r\n          \"MaxLevel\":
+    2,\r\n          \"SpriteAddressableKey\": \"ingredient-flour-1\"\r\n        },\r\n       
+    \"2\": {\r\n          \"Type\": 2,\r\n          \"Level\": 2,\r\n          \"MaxLevel\":
+    2,\r\n          \"SpriteAddressableKey\": \"ingredient-flour-2\"\r\n        }\r\n     
+    }\r\n    }\r\n  }\r\n}\r\n"

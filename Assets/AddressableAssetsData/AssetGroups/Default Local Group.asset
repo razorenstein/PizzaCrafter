@@ -65,7 +65,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: da6e3d6339eee5a40b1be7da47cb5976
-    m_Address: Resource
+    m_Address: ResourceTile
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

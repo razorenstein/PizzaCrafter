@@ -12,5 +12,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners.Abstract
     {
         TileView[] SpawnTiles();
         TileView CreateTile(TileData tileData);
+        void RemoveTile(TileData tileData, TileView tileView);
+
     }
 }

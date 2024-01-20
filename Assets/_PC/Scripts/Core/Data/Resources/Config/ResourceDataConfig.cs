@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets._PC.Scripts.Core.Data.Enums
+namespace Assets._PC.Scripts.Core.Data.Resources.Config
 {
-    public enum ResourceType
+    public class ResourceDataConfig
     {
-        Milk,
-        Tomato,
-        Flour,
     }
 }

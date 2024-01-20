@@ -1,5 +1,6 @@
 ﻿
 using Assets._PC.Scripts.Core.Data.Board;
+using Assets._PC.Scripts.Core.Data.Enums;
 using Assets._PC.Scripts.Core.Data.Ingredients.Config;
 
 namespace Assets._PC.Scripts.Core.Data.Ingredients.Abstract
@@ -16,6 +17,8 @@ namespace Assets._PC.Scripts.Core.Data.Ingredients.Abstract
             Level = ingredientConfig.Level;
             MaxLevel = ingredientConfig.MaxLevel;
             SpriteAddressableKey = ingredientConfig.SpriteAddressableKey;
+            Type = TileType.Ingredient;
+
         }
     }
 }

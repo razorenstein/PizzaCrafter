@@ -14,14 +14,12 @@ namespace Assets._PC.Scripts.Core.Managers
 {
     public class IngredientsManager
     {
-        public Dictionary<IngredientType, IngredientData> Ingredients { get; private set; }
-        private IngredientsConfig _config;
+        private IngredientsDataConfig _config;
 
         public IngredientsManager()
         {
-            Ingredients = new Dictionary<IngredientType, IngredientData>();
-            _config = new IngredientsConfig();
-            //PCManager.Instance.ConfigurationManager.GetConfig<IngredientsConfig>(OnConfigLoaded);
+            _config = new IngredientsDataConfig();
+            PCManager.Instance.ConfigurationManager.GetConfig<IngredientsDataConfig>(OnConfigLoaded);
         }
 
         public bool TryGetIngredient(IngredientType type, int level, out IngredientData ingredientData)
@@ -63,6 +61,9 @@ namespace Assets._PC.Scripts.Core.Managers
 
         public bool IsResourceLevel(IngredientData ingredientData) => ingredientData.Level == 0;
         public bool IsMaxLevel(IngredientData ingredientData) => ingredientData.Level == ingredientData.MaxLevel;
-        private void OnConfigLoaded(IngredientsConfig config) => _config = config;
+        private void OnConfigLoaded(IngredientsDataConfig config)
+        {
+            _config = config;
+        }
     }
 }

@@ -2,9 +2,11 @@
 using Assets._PC.Scripts.Core.Data.Enums;
 using Assets._PC.Scripts.Core.Data.Events;
 using Assets._PC.Scripts.Core.Data.Ingredients;
+using Assets._PC.Scripts.Core.Data.Ingredients.Abstract;
 using log4net.Core;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using UnityEngine.UIElements;
 
 namespace Assets._PC.Scripts.Core.Managers
@@ -26,6 +28,13 @@ namespace Assets._PC.Scripts.Core.Managers
         private void Initialize()
         {
             Grid.Initialize();
+            if (!TilesState.Any())
+            {
+                foreach (var resource in PCManager.Instance.ResourceManager.Resources.Values)
+                {
+                    TrySetTileRandomally(resource);
+                }
+            }
         }
 
         public int GetBoardCellsCount() => Grid.GridSize.Rows * Grid.GridSize.Columns;
@@ -38,6 +47,28 @@ namespace Assets._PC.Scripts.Core.Managers
 
             if (targetCell.IsOccupied())
             {
+                //check for merge
+                if (tile is IngredientData ingredient1 && targetCell.Tile is IngredientData ingredient2)
+                {
+                    if (PCManager.Instance.IngredientsManager.TryMergeIngredients(ingredient1, ingredient2, out var mergedTile))
+                    {
+                        if (Grid.TryMergeTiles(mergedTile, tile.CellData.Position, targetPosition))
+                        {
+                            movementType = TileMovementType.MergeTiles;  
+                            TryRemoveTile(tile);
+                            TryRemoveTile(targetCell.Tile);
+                            if (TrySetTile(mergedTile, mergedTile.CellData.Position))
+                            {
+                                PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnTilesMerged, new TilesMergeEventData()
+                                {
+                                    MergedTile = mergedTile
+                                });
+                                return true;
+                            }
+                        }
+                    }
+                }
+
                 if (Grid.TrySwitchTilesPositions(tile.CellData.Position, targetPosition))
                 {
                     movementType = TileMovementType.MoveToOccupiedCell;
@@ -76,6 +107,24 @@ namespace Assets._PC.Scripts.Core.Managers
                     Tile = tile
                 });
 
+                return true;
+            }
+
+
+            return false;
+        }
+
+        public bool TryRemoveTile(TileData tile)
+        {
+            if (Grid.TryRemoveTile(tile.CellData.Position, out var targetCell))
+            {
+                TilesState.Remove(tile);
+
+                PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnTileRemoved, new TileRemovedEventData()
+                {
+                    Tile = tile,
+                    Cell = targetCell
+                });
                 return true;
             }
 

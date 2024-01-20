@@ -5,7 +5,6 @@ using Assets._PC.Scripts.Core.Managers;
 using Assets._PC.Scripts.Gameplay.Components;
 using System;
 using UnityEngine;
-using static UnityEditor.MaterialProperty;
 
 namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners.Abstract
 {
@@ -29,7 +28,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners.Abstract
         }
 
         public TileView CreateTile(TileData tileData)
-        { 
+        {
             var cell = _gridView.GetCell(tileData.CellData.Position);
             var tile = Manager.PoolManager.GetFromPool<T>(_poolType);
             tile.Initialize(tileData);
@@ -39,6 +38,12 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners.Abstract
             return tile;
         }
 
+        public void RemoveTile(TileData tileData, TileView tileView)
+        {
+            if (tileView is T tileAsT)
+                Manager.PoolManager.ReturnToPool<T>(_poolType, tileAsT);         
+        }
+
         public virtual TileView[] SpawnTiles()
         {
             var tilesData = Manager.BoardManager.TilesState;
@@ -46,19 +51,19 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners.Abstract
             int index = 0;
             foreach (var tileData in tilesData)
             {
-                if(tileData.Type == _tileType)
+                if (tileData.Type == _tileType)
                 {
                     tiles[index] = CreateTile(tileData);
                     index++;
-                }    
-                else 
+                }
+                else
                     return Array.Empty<TileView>();
             }
 
             return tiles;
         }
 
-        protected virtual void InitializePool(PoolType poolType, int poolSize) =>       
+        protected virtual void InitializePool(PoolType poolType, int poolSize) =>
             PCManager.Instance.PoolManager.InitPool<T>(poolType, poolSize);
     }
 }

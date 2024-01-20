@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfc76f260291ab6429994e003ddbcccc, type: 3}
+  m_Name: ResourcesConfig
+  m_EditorClassIdentifier: 
+  Text: "{\r\n  \"Resources\": {\r\n    \"0\": {\r\n      \"ResourceType\": 0,\r\n     
+    \"IngredientType\": 0,\r\n      \"Type\": 0,\r\n      \"SpriteAddressableKey\":
+    \"milk_resource\"\r\n    },\r\n    \"1\": {\r\n      \"ResourceType\": 1,\r\n     
+    \"IngredientType\": 1,\r\n      \"Type\": 0,\r\n      \"SpriteAddressableKey\":
+    \"tomato_resource\"\r\n    },\r\n    \"2\": {\r\n      \"ResourceType\": 2,\r\n     
+    \"IngredientType\": 2,\r\n      \"Type\": 0,\r\n      \"SpriteAddressableKey\":
+    \"flour_resource\"\r\n    }\r\n  }\r\n}"

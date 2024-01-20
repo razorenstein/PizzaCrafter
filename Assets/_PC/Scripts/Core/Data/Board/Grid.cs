@@ -77,7 +77,6 @@ namespace Assets._PC.Scripts.Core.Data.Board
                 if (targetCell.IsOccupied())
                 {
                     targetCell.Tile.CellData = null;
-                    targetCell.Tile = null;
                     _emptyCells.Add(targetCell);
                     return true;
                 }
@@ -100,6 +99,22 @@ namespace Assets._PC.Scripts.Core.Data.Board
                 tile.CellData = targetCell;
                 _emptyCells.Remove(targetCell);
                 _emptyCells.Add(originCell);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool TryMergeTiles(TileData mergedTile, GridPosition firstPosition, GridPosition secondPosition)
+        {
+            if (IsPositionValid(firstPosition) && IsPositionValid(secondPosition))
+            {
+                var firstCell = CellsState[firstPosition.Row, firstPosition.Column];
+                var secondCell = CellsState[secondPosition.Row, secondPosition.Column];
+
+                firstCell.Tile = null;
+                secondCell.Tile = mergedTile;
 
                 return true;
             }

@@ -46,6 +46,14 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners
             return tileView;
         }
 
+        public void RemoveTile(TileData tileData, TileView tileView)
+        {
+            if (_tileSpawners.TryGetValue(tileData.Type, out var tileSpawner))
+            {
+                tileSpawner.RemoveTile(tileData, tileView);
+            }
+        }
+
         public TileView[] SpawnTiles(TileType tileType)
         {
             if(_tileSpawners.TryGetValue(tileType, out var tileSpawner))

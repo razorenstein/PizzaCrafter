@@ -10,7 +10,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners.Concrete
     {
         public void Initialize(GridView gridView)
         {
-            base.Initialize(gridView, TileType.Ingredient, PoolType.IngredientTile, poolSize: PCManager.Instance.IngredientsManager.Ingredients.Count);
+            base.Initialize(gridView, TileType.Ingredient, PoolType.IngredientTile, poolSize: PCManager.Instance.BoardManager.GetBoardCellsCount());
         }
     }
 }

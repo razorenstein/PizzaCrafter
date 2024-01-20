@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Assets._PC.Scripts.Core.Data.Ingredients.Config
 {
-    public class IngredientsConfig : BaseConfig
+    public class IngredientsDataConfig : BaseConfig
     {
         public Dictionary<IngredientType, IngredientConfig> Ingredients;
     }
