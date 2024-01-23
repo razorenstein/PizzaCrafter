@@ -50,7 +50,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners
         {
             if (_tileSpawners.TryGetValue(tileData.Type, out var tileSpawner))
             {
-                tileSpawner.RemoveTile(tileData, tileView);
+                tileSpawner.RemoveTile(tileView);
             }
         }
 

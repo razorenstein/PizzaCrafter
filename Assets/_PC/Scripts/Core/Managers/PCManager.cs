@@ -21,6 +21,7 @@ namespace Assets._PC.Scripts.Core.Managers
         //Gameplay
         public ResourceManager ResourceManager;
         public IngredientsManager IngredientsManager;
+        public RecipesManager RecipesManager;
         public BoardManager BoardManager;
 
         public PCManager()
@@ -37,6 +38,7 @@ namespace Assets._PC.Scripts.Core.Managers
 
             ResourceManager = new ResourceManager();
             IngredientsManager = new IngredientsManager();
+            RecipesManager = new RecipesManager();
             BoardManager = new BoardManager(new GridSize(_boardRows, _boardCols));
         }
     }

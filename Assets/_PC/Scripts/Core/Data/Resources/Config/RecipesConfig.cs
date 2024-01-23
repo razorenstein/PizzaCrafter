@@ -1,5 +1,6 @@
 ﻿using Assets._PC.Scripts.Core.Data.Config;
 using Assets._PC.Scripts.Core.Data.Enums;
+using Assets._PC.Scripts.Core.Data.Recipes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace Assets._PC.Scripts.Core.Data.Resources.Config
 {
-    public class ResourceDataConfig : BaseConfig
+    public class RecipesConfig : BaseConfig
     {
-        public Dictionary<ResourceType, ResourceData> Resources;
-    }  
+        public Dictionary<RecipeType, RecipeData> Recipes;
+    }
 }

@@ -110,11 +110,13 @@ namespace Assets._PC.Scripts.Core.Data.Board
         {
             if (IsPositionValid(firstPosition) && IsPositionValid(secondPosition))
             {
-                var firstCell = CellsState[firstPosition.Row, firstPosition.Column];
-                var secondCell = CellsState[secondPosition.Row, secondPosition.Column];
+                var originCell = CellsState[firstPosition.Row, firstPosition.Column];
+                var targetCell = CellsState[secondPosition.Row, secondPosition.Column];
 
-                firstCell.Tile = null;
-                secondCell.Tile = mergedTile;
+                originCell.Tile = null;
+                targetCell.Tile = mergedTile;
+                mergedTile.CellData = targetCell;
+                _emptyCells.Add(originCell);
 
                 return true;
             }

@@ -69,6 +69,21 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ee41020435fea4a44b6801047a243e36
+    m_Address: ingredient-flour-2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 93fab8bb4dcea3c48b2fea05e2e216bf
+    m_Address: ingredient-tomato-2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 41d7ade330ac0554ba1c23b6fd7f905b
+    m_Address: ingredient-cheese-2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d06ad09b22fc4b8469e5c0e659cdfd11, type: 2}
   m_SchemaSet:

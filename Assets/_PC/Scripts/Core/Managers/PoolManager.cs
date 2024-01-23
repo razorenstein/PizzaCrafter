@@ -59,12 +59,12 @@ namespace Assets._PC.Scripts.Core.Managers
             Pools[poolType].AvailableItems.Remove(availableItem);
             Pools[poolType].UnAvailableItems.Add(availableItem);
 
-            availableItem.gameObject.SetActive(true);
             return (T)availableItem;
         }
 
         public void ReturnToPool<T>(PoolType poolType, T returnedObject) where T : Component
         {
+            returnedObject.transform.SetParent(GetPoolsHolder().transform);
             Pools[poolType].AvailableItems.Add(returnedObject);
             Pools[poolType].UnAvailableItems.Remove(returnedObject);
 

@@ -50,14 +50,17 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
         {
             var originCell = _gridView.GetCell(_currentDraggedTile.Data.CellData.Position);
             var targetCell = _gridView.GetCell(targetCellData.Position);
+
             if (Manager.BoardManager.TryMoveTile(_currentDraggedTile.Data, targetCellData.Position, out var movementType))
             {
                 switch (movementType)
                 {
-                    //case TileMovementType.MergeTiles:
-                    //    var mergedTile = _tilesState[targetCell.Data.Position];
-                    //    RemoveTile()
-                    //    break;
+                    case TileMovementType.MergeTiles:
+                        var mergedTileData = targetCell.Data.Tile;                        
+                        RemoveTile(_tilesState[originCell.Data.Position], originCell.Data.Position);
+                        RemoveTile(_tilesState[targetCellData.Position], targetCellData.Position);
+                        CreateTile(mergedTileData);
+                        break;
 
                     case TileMovementType.MoveToOccupiedCell:
 
@@ -69,8 +72,6 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
                     case TileMovementType.MoveToEmptyCell:
                         UpdateTilePosition(_currentDraggedTile, originCell, targetCell, true);
                         break;
-
-
                 }
             }
         }
@@ -102,10 +103,10 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             _tilesState[tileData.CellData.Position] = tile;
         }
 
-        private void RemoveTile(TileData tile)
+        private void RemoveTile(TileView tile, GridPosition position)
         {
-            _tileSpawnerManager.RemoveTile(tile, _tilesState[tile.CellData.Position]);
-            _tilesState[tile.CellData.Position] = null;
+            _tileSpawnerManager.RemoveTile(tile.Data, tile);
+            _tilesState[position] = null;
         }
 
         private void UpdateTilePosition(TileView tile, CellView originCell, CellView targetCell, bool isMoveToEmptyCell)
@@ -123,11 +124,11 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             CreateTile(eventData.Tile);
         }
 
-        private void OnTileRemoved(PCBaseEventData baseEventData)
-        {
-            var eventData = (TileRemovedEventData)baseEventData;
-            RemoveTile(eventData.Tile);
-        }
+        //private void OnTileRemoved(PCBaseEventData baseEventData)
+        //{
+        //    var eventData = (TileRemovedEventData)baseEventData;
+        //    RemoveTile(eventData.Tile, );
+        //}
 
         private void OnPoolReady(PCBaseEventData baseEventData)
         {
@@ -138,7 +139,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
         private void RegisterEventListeners()
         {
             Manager.EventManager.AddListener(PCEventType.OnTileCreated, OnTileCreated);
-            Manager.EventManager.AddListener(PCEventType.OnTileRemoved, OnTileRemoved);
+            //Manager.EventManager.AddListener(PCEventType.OnTileRemoved, OnTileRemoved);
             Manager.EventManager.AddListener(PCEventType.PoolReady, OnPoolReady);
         }
 
@@ -147,7 +148,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
         private void UnRegisterEventListeners()
         {
             Manager.EventManager.RemoveListener(PCEventType.OnTileCreated, OnTileCreated);
-            Manager.EventManager.RemoveListener(PCEventType.OnTileRemoved, OnTileRemoved);
+            //Manager.EventManager.RemoveListener(PCEventType.OnTileRemoved, OnTileRemoved);
             Manager.EventManager.RemoveListener(PCEventType.PoolReady, OnPoolReady);
         }
 

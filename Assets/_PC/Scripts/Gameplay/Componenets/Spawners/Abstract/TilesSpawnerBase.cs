@@ -32,16 +32,20 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners.Abstract
             var cell = _gridView.GetCell(tileData.CellData.Position);
             var tile = Manager.PoolManager.GetFromPool<T>(_poolType);
             tile.Initialize(tileData);
-            tile.transform.SetParent(cell.transform, false);
-            tile.transform.position = cell.transform.position;
+            tile.RectTransform.SetParent(cell.transform, false);
+            tile.RectTransform.localScale = new Vector2(1, 1);
+            tile.RectTransform.sizeDelta = new Vector2(1, 1);
+            tile.RectTransform.position = cell.transform.position;
+            tile.gameObject.SetActive(true);
 
-            return tile;
+            return tile; 
         }
 
-        public void RemoveTile(TileData tileData, TileView tileView)
+        public void RemoveTile(TileView tileView)
         {
+            tileView.Unload();
             if (tileView is T tileAsT)
-                Manager.PoolManager.ReturnToPool<T>(_poolType, tileAsT);         
+                Manager.PoolManager.ReturnToPool<T>(_poolType, tileAsT);
         }
 
         public virtual TileView[] SpawnTiles()

@@ -45,26 +45,25 @@ namespace Assets._PC.Scripts.Core.Managers
             var targetCell = Grid.GetCellData(targetPosition);
             var originCell = tile.CellData;
 
-            if (targetCell.IsOccupied())
+            if (targetCell.IsOccupied() && targetCell != originCell)
             {
                 //check for merge
                 if (tile is IngredientData ingredient1 && targetCell.Tile is IngredientData ingredient2)
                 {
                     if (PCManager.Instance.IngredientsManager.TryMergeIngredients(ingredient1, ingredient2, out var mergedTile))
                     {
+                        TilesState.Remove(tile);
+                        TilesState.Remove(targetCell.Tile);
+
                         if (Grid.TryMergeTiles(mergedTile, tile.CellData.Position, targetPosition))
                         {
-                            movementType = TileMovementType.MergeTiles;  
-                            TryRemoveTile(tile);
-                            TryRemoveTile(targetCell.Tile);
-                            if (TrySetTile(mergedTile, mergedTile.CellData.Position))
-                            {
-                                PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnTilesMerged, new TilesMergeEventData()
+                            movementType = TileMovementType.MergeTiles;
+                            TilesState.Add(mergedTile);
+                            PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnTilesMerged, new TilesMergeEventData()
                                 {
                                     MergedTile = mergedTile
                                 });
-                                return true;
-                            }
+                            return true;                         
                         }
                     }
                 }
