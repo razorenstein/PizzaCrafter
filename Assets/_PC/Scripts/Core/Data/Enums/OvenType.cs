@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Assets._PC.Scripts.Core.Data.Enums
 {
-    public enum PoolType
+    public enum OvenType
     {
-        IngredientTile,
-        ResourceTile,
-        OvenTile,
-        Cell
+        Regular
     }
 }

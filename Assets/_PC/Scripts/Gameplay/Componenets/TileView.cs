@@ -2,6 +2,7 @@
 using Assets._PC.Scripts.Core.Data.Board;
 using Assets._PC.Scripts.Gameplay.Componenets.Helpers;
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,23 +18,24 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
         [SerializeField]
         protected CanvasGroup _canvasGroup;
 
-        public virtual void Initialize(TileData data)
+        public async virtual Task Initialize(TileData data)
         {
             Data = data;
-            LoadSprite(data.SpriteAddressableKey);
+            await LoadSprite(data.SpriteAddressableKey);
             _canvasGroup.blocksRaycasts = true;
         }
 
-        public void OnDragDrop(CellData cellData)
+        public async virtual Task OnDragDrop(CellData cellData)
         {
-            BoardView.Instance.OnTileDragDrop(cellData);
+            await BoardView.Instance.OnTileDragDrop(cellData);
         }
+
         public void Unload()
         {
             _image.sprite = null;
         }
 
-        private async void LoadSprite(string addressableKey)
+        private async Task LoadSprite(string addressableKey)
         {
             try
             {

@@ -21,6 +21,7 @@ namespace Assets._PC.Scripts.Core.Managers
         //Gameplay
         public ResourceManager ResourceManager;
         public IngredientsManager IngredientsManager;
+        public OvenManager OvenManager;
         public RecipesManager RecipesManager;
         public BoardManager BoardManager;
 
@@ -38,6 +39,7 @@ namespace Assets._PC.Scripts.Core.Managers
 
             ResourceManager = new ResourceManager();
             IngredientsManager = new IngredientsManager();
+            OvenManager = new OvenManager();
             RecipesManager = new RecipesManager();
             BoardManager = new BoardManager(new GridSize(_boardRows, _boardCols));
         }

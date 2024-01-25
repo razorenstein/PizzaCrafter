@@ -1,5 +1,6 @@
 ﻿using Assets._PC.Scripts.Core.Data.Board;
 using Assets._PC.Scripts.Core.Data.Enums;
+using Assets._PC.Scripts.Gameplay.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,8 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners.Abstract
 {
     public interface ITileSpawner 
     {
-        TileView[] SpawnTiles();
-        TileView CreateTile(TileData tileData);
+        Task<List<TileView>> SpawnTiles();
+        Task<TileView> CreateTile(TileData tileData);
         void RemoveTile(TileView tileView);
-
     }
 }

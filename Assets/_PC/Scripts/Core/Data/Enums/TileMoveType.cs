@@ -6,6 +6,7 @@ namespace Assets._PC.Scripts.Core.Data.Enums
         None,
         MoveToEmptyCell,
         MoveToOccupiedCell,
+        MoveIngredientToOven,
         MergeTiles
     }
 }

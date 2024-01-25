@@ -8,6 +8,5 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
 {
     public class IngredientTileView : TileView
     {
-
     }
 }

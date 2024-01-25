@@ -13,5 +13,6 @@ namespace Assets._PC.Scripts.Core.Data.Events
         OnTileRemoved,
         OnTilesMerged,
         OnTilesPositionUpdate,
+        OnIngredientMovedToOven
     }
 }

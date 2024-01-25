@@ -3,6 +3,8 @@ using Assets._PC.Scripts.Core.Data.Enums;
 using Assets._PC.Scripts.Core.Data.Events;
 using Assets._PC.Scripts.Core.Data.Ingredients;
 using Assets._PC.Scripts.Core.Data.Ingredients.Abstract;
+using Assets._PC.Scripts.Core.Data.Oven;
+using Codice.Client.BaseCommands.Merge;
 using log4net.Core;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -34,6 +36,11 @@ namespace Assets._PC.Scripts.Core.Managers
                 {
                     TrySetTileRandomally(resource);
                 }
+
+                foreach (var oven in PCManager.Instance.OvenManager.Ovens.Values)
+                {
+                    TrySetTileRandomally(oven);
+                }
             }
         }
 
@@ -47,6 +54,15 @@ namespace Assets._PC.Scripts.Core.Managers
 
             if (targetCell.IsOccupied() && targetCell != originCell)
             {
+                if ((targetCell.Tile is OvenData ovenData) && (tile is IngredientData ingredient))
+                {
+                    if (PCManager.Instance.OvenManager.TrySetToOven(ovenData, ingredient))
+                    {
+                        movementType = TileMovementType.MoveIngredientToOven;
+                        return true;
+                    }
+                }
+
                 //check for merge
                 if (tile is IngredientData ingredient1 && targetCell.Tile is IngredientData ingredient2)
                 {

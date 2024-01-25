@@ -7,6 +7,8 @@ using Assets._PC.Scripts.Gameplay.Components;
 using Assets._PC.Scripts.Core.Data.Board;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Threading.Tasks;
 
 namespace Assets._PC.Scripts.Gameplay.Componenets
 {
@@ -46,7 +48,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
 
         public void RemoveDraggedTile() => _currentDraggedTile = null;
 
-        public void OnTileDragDrop(CellData targetCellData)
+        public async Task OnTileDragDrop(CellData targetCellData)
         {
             var originCell = _gridView.GetCell(_currentDraggedTile.Data.CellData.Position);
             var targetCell = _gridView.GetCell(targetCellData.Position);
@@ -55,15 +57,18 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             {
                 switch (movementType)
                 {
+                    case TileMovementType.MoveIngredientToOven:
+                        RemoveTile(_tilesState[originCell.Data.Position], originCell.Data.Position);
+                        break;
+
                     case TileMovementType.MergeTiles:
                         var mergedTileData = targetCell.Data.Tile;                        
                         RemoveTile(_tilesState[originCell.Data.Position], originCell.Data.Position);
                         RemoveTile(_tilesState[targetCellData.Position], targetCellData.Position);
-                        CreateTile(mergedTileData);
+                        await CreateTile(mergedTileData);
                         break;
 
                     case TileMovementType.MoveToOccupiedCell:
-
                         var tileOnTargetCell = _tilesState[targetCell.Data.Position];
                         UpdateTilePosition(tileOnTargetCell, targetCell, originCell, false);
                         UpdateTilePosition(_currentDraggedTile, originCell, targetCell, false);
@@ -76,9 +81,9 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             }
         }
 
-        private void SpawnTiles(TileType tileType)
+        private async Task SpawnTiles(TileType tileType)
         {
-            var spawnedTiles = _tileSpawnerManager.SpawnTiles(tileType);
+            var spawnedTiles = await _tileSpawnerManager.SpawnTiles(tileType);
             foreach (var spawnedTile in spawnedTiles)
             {
                 _tilesState[spawnedTile.Data.CellData.Position] = spawnedTile;
@@ -97,9 +102,9 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             }
         }
 
-        private void CreateTile(TileData tileData)
+        private async Task CreateTile(TileData tileData)
         {
-            var tile = _tileSpawnerManager.CreateTile(tileData);
+            var tile = await _tileSpawnerManager.CreateTile(tileData);
             _tilesState[tileData.CellData.Position] = tile;
         }
 
@@ -132,22 +137,27 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
 
         private void OnPoolReady(PCBaseEventData baseEventData)
         {
-            var eventData = (PoolReadyEventData)baseEventData;
+            var eventData = (PoolReadyEventData) baseEventData;
             SpawnTiles(PoolTypesHelper.MapToTileType(eventData.Type));
         }
 
+        private void OnIngredientMovedToOven(PCBaseEventData baseEventData)
+        {
+            var eventData = (IngredientMovedToOven) baseEventData;
+            //SpawnTiles(PoolTypesHelper.MapToTileType(eventData.Type));}
+        }
         private void RegisterEventListeners()
         {
             Manager.EventManager.AddListener(PCEventType.OnTileCreated, OnTileCreated);
             //Manager.EventManager.AddListener(PCEventType.OnTileRemoved, OnTileRemoved);
+            Manager.EventManager.AddListener(PCEventType.OnIngredientMovedToOven, OnIngredientMovedToOven);
             Manager.EventManager.AddListener(PCEventType.PoolReady, OnPoolReady);
         }
-
-
 
         private void UnRegisterEventListeners()
         {
             Manager.EventManager.RemoveListener(PCEventType.OnTileCreated, OnTileCreated);
+            Manager.EventManager.RemoveListener(PCEventType.OnIngredientMovedToOven, OnIngredientMovedToOven);
             //Manager.EventManager.RemoveListener(PCEventType.OnTileRemoved, OnTileRemoved);
             Manager.EventManager.RemoveListener(PCEventType.PoolReady, OnPoolReady);
         }

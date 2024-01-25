@@ -9,6 +9,7 @@ namespace Assets._PC.Scripts.Core.Data.Enums
     public enum TileType
     {
         Resource,
-        Ingredient
+        Ingredient,
+        Oven
     }
 }

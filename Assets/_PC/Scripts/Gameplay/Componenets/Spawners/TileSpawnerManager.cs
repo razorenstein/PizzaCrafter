@@ -22,25 +22,28 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners
         private IngredientTileSpawner _ingredientTileSpawner;
         [SerializeField]
         private ResourceTileSpawner _resourceTileSpawner;
+        [SerializeField]
+        private OvenTileSpawner _ovenTileSpawner;
 
         public void Initialize(GridView gridView)
         {
             _ingredientTileSpawner.Initialize(gridView);
             _resourceTileSpawner.Initialize(gridView);
-
+            _ovenTileSpawner.Initialize(gridView);
             _tileSpawners = new Dictionary<TileType, ITileSpawner>
             {
                 { TileType.Ingredient, _ingredientTileSpawner },
-                { TileType.Resource, _resourceTileSpawner }
+                { TileType.Resource, _resourceTileSpawner },
+                { TileType.Oven, _ovenTileSpawner }
             };
         }
 
-        public TileView CreateTile(TileData tileData)
+        public async Task<TileView> CreateTile(TileData tileData)
         {
             TileView tileView = null;
             if (_tileSpawners.TryGetValue(tileData.Type, out var tileSpawner))
             {
-                tileView =  tileSpawner.CreateTile(tileData);
+                tileView =  await tileSpawner.CreateTile(tileData);
             }
 
             return tileView;
@@ -54,14 +57,14 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners
             }
         }
 
-        public TileView[] SpawnTiles(TileType tileType)
+        public async Task<List<TileView>> SpawnTiles(TileType tileType)
         {
             if(_tileSpawners.TryGetValue(tileType, out var tileSpawner))
             {
-                return tileSpawner.SpawnTiles();
+                return await tileSpawner.SpawnTiles();
             }
 
-            return Array.Empty<TileView>();
+            return new List<TileView>();
         }
     }
 }

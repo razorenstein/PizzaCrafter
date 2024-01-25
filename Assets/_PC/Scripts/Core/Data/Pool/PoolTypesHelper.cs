@@ -16,6 +16,7 @@ namespace Assets._PC.Scripts.Core.Data.Pool
             {
                 PoolType.IngredientTile => "IngredientTile",
                 PoolType.ResourceTile => "ResourceTile",
+                PoolType.OvenTile => "OvenTile",
                 PoolType.Cell => "Cell",
                 _ => throw new NotImplementedException("No mapping between pool class type and adressable name")
             };  
@@ -26,6 +27,7 @@ namespace Assets._PC.Scripts.Core.Data.Pool
             return type switch
             {
                 PoolType.IngredientTile => TileType.Ingredient,
+                PoolType.OvenTile => TileType.Oven,
                 PoolType.ResourceTile => TileType.Resource,             
                 _ => throw new NotImplementedException("No mapping between pool class type and adressable name")
             };

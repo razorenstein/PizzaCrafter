@@ -84,6 +84,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e8bde052c80f56743a84d1bf6c31cd43
+    m_Address: OvenTile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 15571676f0c94b64e8d6436a8dc7282f
+    m_Address: oven_0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d06ad09b22fc4b8469e5c0e659cdfd11, type: 2}
   m_SchemaSet:

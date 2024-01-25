@@ -36,7 +36,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Helpers
         public void OnDrag(PointerEventData eventData)
         {
             transform.SetParent(_dragParent);
-            _itemToDrag.RectTransform.anchoredPosition += eventData.delta;
+            _itemToDrag.RectTransform.position = eventData.position;
         }
 
         public void OnEndDrag(PointerEventData eventData)

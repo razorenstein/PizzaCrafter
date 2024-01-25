@@ -4,6 +4,8 @@ using Assets._PC.Scripts.Core.Data.Enums;
 using Assets._PC.Scripts.Core.Managers;
 using Assets._PC.Scripts.Gameplay.Components;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners.Abstract
@@ -27,11 +29,11 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners.Abstract
             InitializePool(_poolType, _poolSize);
         }
 
-        public TileView CreateTile(TileData tileData)
+        public async Task<TileView> CreateTile(TileData tileData)
         {
             var cell = _gridView.GetCell(tileData.CellData.Position);
             var tile = Manager.PoolManager.GetFromPool<T>(_poolType);
-            tile.Initialize(tileData);
+            await tile.Initialize(tileData);
             tile.RectTransform.SetParent(cell.transform, false);
             tile.RectTransform.localScale = new Vector2(1, 1);
             tile.RectTransform.sizeDelta = new Vector2(1, 1);
@@ -48,20 +50,16 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners.Abstract
                 Manager.PoolManager.ReturnToPool<T>(_poolType, tileAsT);
         }
 
-        public virtual TileView[] SpawnTiles()
+        public async virtual Task<List<TileView>> SpawnTiles()
         {
             var tilesData = Manager.BoardManager.TilesState;
-            var tiles = new TileView[tilesData.Count];
-            int index = 0;
+            var tiles = new List<TileView>();
             foreach (var tileData in tilesData)
             {
                 if (tileData.Type == _tileType)
                 {
-                    tiles[index] = CreateTile(tileData);
-                    index++;
+                    tiles.Add(await CreateTile(tileData));
                 }
-                else
-                    return Array.Empty<TileView>();
             }
 
             return tiles;
