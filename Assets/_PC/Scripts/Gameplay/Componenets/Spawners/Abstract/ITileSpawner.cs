@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners.Abstract
 {
-    public interface ITileSpawner 
+    public interface ITileSpawner
     {
+        void Initialize();
         Task<List<TileView>> SpawnTiles();
         Task<TileView> CreateTile(TileData tileData);
         void RemoveTile(TileView tileView);

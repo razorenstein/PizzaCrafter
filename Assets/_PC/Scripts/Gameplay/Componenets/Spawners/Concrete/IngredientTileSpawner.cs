@@ -8,9 +8,9 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners.Concrete
 {
     public class IngredientTileSpawner : TilesSpawnerBase<IngredientTileView>
     {
-        public void Initialize(GridView gridView)
+        public override void Initialize()
         {
-            base.Initialize(gridView, TileType.Ingredient, PoolType.IngredientTile, poolSize: PCManager.Instance.BoardManager.GetBoardCellsCount());
+            base.Initialize(TileType.Ingredient, PoolType.IngredientTile, poolSize: PCManager.Instance.BoardManager.GetBoardCellsCount());
         }
     }
 }

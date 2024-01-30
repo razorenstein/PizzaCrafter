@@ -13,16 +13,15 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners.Abstract
     public abstract class TilesSpawnerBase<T> : PCMonoBehaviour, ITileSpawner where T : TileView
     {
         [SerializeField]
-        protected GridView _gridView;
-        [SerializeField]
         protected TileView _tilePrefab;
         protected PoolType _poolType;
         protected TileType _tileType;
         protected int _poolSize;
 
-        public void Initialize(GridView gridView, TileType tileType, PoolType poolType, int poolSize)
+        public abstract void Initialize();
+
+        protected virtual void Initialize(TileType tileType, PoolType poolType, int poolSize)
         {
-            _gridView = gridView;
             _poolType = poolType;
             _poolSize = poolSize;
             _tileType = tileType;
@@ -31,14 +30,8 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners.Abstract
 
         public async Task<TileView> CreateTile(TileData tileData)
         {
-            var cell = _gridView.GetCell(tileData.CellData.Position);
             var tile = Manager.PoolManager.GetFromPool<T>(_poolType);
             await tile.Initialize(tileData);
-            tile.RectTransform.SetParent(cell.transform, false);
-            tile.RectTransform.localScale = new Vector2(1, 1);
-            tile.RectTransform.sizeDelta = new Vector2(1, 1);
-            tile.RectTransform.position = cell.transform.position;
-            tile.gameObject.SetActive(true);
 
             return tile; 
         }
@@ -64,7 +57,6 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners.Abstract
 
             return tiles;
         }
-
         protected virtual void InitializePool(PoolType poolType, int poolSize) =>
             PCManager.Instance.PoolManager.InitPool<T>(poolType, poolSize);
     }

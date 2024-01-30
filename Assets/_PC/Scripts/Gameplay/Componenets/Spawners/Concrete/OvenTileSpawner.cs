@@ -12,9 +12,9 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners.Concrete
 {
     public class OvenTileSpawner : TilesSpawnerBase<OvenTileView>
     {
-        public void Initialize(GridView gridView)
+        public override void Initialize()
         {
-            base.Initialize(gridView, TileType.Oven, PoolType.OvenTile, poolSize: 3);
+            base.Initialize(TileType.Oven, PoolType.OvenTile, poolSize: 3);
         }
     }
 }

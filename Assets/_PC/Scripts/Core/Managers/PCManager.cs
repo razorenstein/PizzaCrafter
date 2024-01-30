@@ -7,8 +7,8 @@ namespace Assets._PC.Scripts.Core.Managers
 {
     public class PCManager
     {
-        private static int _boardRows = 5;
-        private static int _boardCols = 5;
+        private static int _boardRows = 4;
+        private static int _boardCols = 4;
 
         public static PCManager Instance { get; private set; }
 

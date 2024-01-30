@@ -9,9 +9,5 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
 {
     public class OvenTileView : TileView
     {
-        public async override Task OnDragDrop(CellData cellData)
-        {
-            await BoardView.Instance.OnTileDragDrop(cellData);
-        }
     }
 }

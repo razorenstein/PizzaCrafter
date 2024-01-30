@@ -25,17 +25,19 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners
         [SerializeField]
         private OvenTileSpawner _ovenTileSpawner;
 
-        public void Initialize(GridView gridView)
+        public void Initialize()
         {
-            _ingredientTileSpawner.Initialize(gridView);
-            _resourceTileSpawner.Initialize(gridView);
-            _ovenTileSpawner.Initialize(gridView);
             _tileSpawners = new Dictionary<TileType, ITileSpawner>
             {
                 { TileType.Ingredient, _ingredientTileSpawner },
                 { TileType.Resource, _resourceTileSpawner },
                 { TileType.Oven, _ovenTileSpawner }
             };
+
+            foreach(var tileSpawner in _tileSpawners)
+            {
+                tileSpawner.Value.Initialize();
+            }
         }
 
         public async Task<TileView> CreateTile(TileData tileData)

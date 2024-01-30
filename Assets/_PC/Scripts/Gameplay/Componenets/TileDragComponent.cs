@@ -23,7 +23,8 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Helpers
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-
+            if (!_itemToDrag.IsDraggable)
+                return;
             _boardView = BoardView.Instance;
             _boardView.SetDraggedTile(_itemToDrag);
             _startParent = _itemToDrag.transform.parent;
@@ -35,12 +36,18 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Helpers
 
         public void OnDrag(PointerEventData eventData)
         {
+            if (!_itemToDrag.IsDraggable)
+                return;
+
             transform.SetParent(_dragParent);
             _itemToDrag.RectTransform.position = eventData.position;
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            if (!_itemToDrag.IsDraggable)
+                return;
+
             _canvasGroup.blocksRaycasts = true;
             if (_itemToDrag.transform.parent == _dragParent)
             {

@@ -11,6 +11,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
     public abstract class TileView : PCMonoBehaviour
     {
         public TileData Data;
+        public bool IsDraggable { get; private set; } = true;
         [SerializeField]
         public RectTransform RectTransform;
         [SerializeField]
@@ -28,6 +29,12 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
         public async virtual Task OnDragDrop(CellData cellData)
         {
             await BoardView.Instance.OnTileDragDrop(cellData);
+        }
+
+        public void Deactivate()
+        {
+            _image.color = Color.grey;
+            IsDraggable = false;
         }
 
         public void Unload()

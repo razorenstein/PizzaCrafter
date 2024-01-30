@@ -18,7 +18,6 @@ namespace Assets._PC.Scripts.Core.Data.Ingredients.Abstract
             MaxLevel = ingredientConfig.MaxLevel;
             SpriteAddressableKey = ingredientConfig.SpriteAddressableKey;
             Type = TileType.Ingredient;
-
         }
     }
 }

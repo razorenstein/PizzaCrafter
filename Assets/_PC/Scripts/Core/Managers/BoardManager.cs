@@ -37,7 +37,7 @@ namespace Assets._PC.Scripts.Core.Managers
                     TrySetTileRandomally(resource);
                 }
 
-                foreach (var oven in PCManager.Instance.OvenManager.Ovens.Values)
+                foreach (var oven in PCManager.Instance.OvenManager.Ovens)
                 {
                     TrySetTileRandomally(oven);
                 }

@@ -10,11 +10,6 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
 {
     public class ResourceTileView : TileView, IPointerClickHandler
     {
-        //public override void Initialize(TileData data)
-        //{
-        //    base.Initialize(data);
-        //}
-
         public void OnPointerClick(PointerEventData eventData)
         {      
             var resourcedata = (ResourceData) Data;

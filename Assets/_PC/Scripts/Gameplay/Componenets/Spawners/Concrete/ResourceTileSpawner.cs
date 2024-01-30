@@ -7,9 +7,9 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners.Concrete
 {
     public class ResourceTileSpawner : TilesSpawnerBase<ResourceTileView>
     {
-        public void Initialize(GridView gridView)
+        public override void Initialize()
         {
-            base.Initialize(gridView, TileType.Resource, PoolType.ResourceTile, poolSize: PCManager.Instance.ResourceManager.Resources.Count);
+            base.Initialize(TileType.Resource, PoolType.ResourceTile, poolSize: PCManager.Instance.ResourceManager.Resources.Count);
         }
     }
 }

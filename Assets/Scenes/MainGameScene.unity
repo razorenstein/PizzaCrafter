@@ -349,7 +349,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 067d53268ae4fda47a4ac8ebddef5cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gridView: {fileID: 0}
   _tilePrefab: {fileID: 3965419964989933123, guid: da6e3d6339eee5a40b1be7da47cb5976,
     type: 3}
 --- !u!1 &837346809
@@ -592,8 +591,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000012397579, y: 0}
-  m_SizeDelta: {x: 463.8321, y: 424.7857}
+  m_AnchoredPosition: {x: 0.000017166, y: 0.0000076294}
+  m_SizeDelta: {x: 599.6096, y: 692.5264}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1263482654
 MonoBehaviour:
@@ -657,7 +656,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fe8a8b7c46493747a8a9a4da3ca58d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gridView: {fileID: 0}
   _tilePrefab: {fileID: 1038325103235490220, guid: 8ed67d2e3d9a7f249addaa20291137a4,
     type: 3}
 --- !u!1 &1527658066
@@ -708,7 +706,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9213185039e76354a97350dea3d8dd61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gridView: {fileID: 1678361770}
   _tilePrefab: {fileID: 3767991552684185150, guid: e8bde052c80f56743a84d1bf6c31cd43,
     type: 3}
 --- !u!1 &1678361765
@@ -746,8 +743,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -2, y: -2}
+  m_AnchoredPosition: {x: 0.00012207031, y: 0.00015258789}
+  m_SizeDelta: {x: 118.49, y: 136.85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1678361768
 CanvasRenderer:

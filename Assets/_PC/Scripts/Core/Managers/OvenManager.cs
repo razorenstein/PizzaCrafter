@@ -16,19 +16,19 @@ namespace Assets._PC.Scripts.Core.Managers
 {
     public class OvenManager
     {
-        public Dictionary<OvenType, OvenData> Ovens { get; private set; }
+        public List<OvenData> Ovens { get; private set; }
         private OvensConfig _config;
 
         public OvenManager()
         {
-            Ovens = new Dictionary<OvenType, OvenData>();
+            Ovens = new List<OvenData>();
             _config = new OvensConfig();
             PCManager.Instance.ConfigurationManager.GetConfig<OvensConfig>(OnConfigLoaded);
         }
 
         public bool TrySetToOven(OvenData oven, IngredientData ingredient)
         {
-            if (ingredient.Level != ingredient.MaxLevel)
+            if (oven.MaxCapacity > oven.Ingredients.Count)
             {
                 oven.Ingredients.Add(ingredient);
 
@@ -47,7 +47,7 @@ namespace Assets._PC.Scripts.Core.Managers
         private void OnConfigLoaded(OvensConfig config)
         {
             _config = config;
-            Ovens = _config.Ovens;
+            Ovens.Add(_config.Ovens.Values.First());
         }
     }
 }
