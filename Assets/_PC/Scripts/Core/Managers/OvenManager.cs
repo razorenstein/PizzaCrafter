@@ -32,12 +32,6 @@ namespace Assets._PC.Scripts.Core.Managers
             {
                 oven.Ingredients.Add(ingredient);
 
-                PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnIngredientMovedToOven, new IngredientMovedToOven()
-                {
-                    Oven = oven,
-                    Ingredient = ingredient
-                });
-
                 return true;
             }
 

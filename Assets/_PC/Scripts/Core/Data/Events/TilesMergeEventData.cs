@@ -10,5 +10,8 @@ namespace Assets._PC.Scripts.Core.Data.Events
     public class TilesMergeEventData : PCBaseEventData
     {
         public TileData MergedTile { get; set; }
+        public TileData OriginTile { get; set; }
+        public TileData TargetTile { get; set; }
+
     }
 }

@@ -26,10 +26,10 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             _canvasGroup.blocksRaycasts = true;
         }
 
-        public async virtual Task OnDragDrop(CellData cellData)
-        {
-            await BoardView.Instance.OnTileDragDrop(cellData);
-        }
+        //public async virtual Task OnDragDrop(CellData cellData)
+        //{
+        //    await BoardView.Instance.OnTileDragDrop(cellData);
+        //}
 
         public void Deactivate()
         {

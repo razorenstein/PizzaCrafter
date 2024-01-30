@@ -26,7 +26,6 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Helpers
             if (!_itemToDrag.IsDraggable)
                 return;
             _boardView = BoardView.Instance;
-            _boardView.SetDraggedTile(_itemToDrag);
             _startParent = _itemToDrag.transform.parent;
             //in order to render it above all cells for the drag
             _dragParent = _boardView.transform;
@@ -54,8 +53,6 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Helpers
                 _itemToDrag.transform.position = _startPosition;
                 _itemToDrag.transform.SetParent(_startParent);
             }
-
-            _boardView.RemoveDraggedTile();
         }
     }
 }

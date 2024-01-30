@@ -54,22 +54,31 @@ namespace Assets._PC.Scripts.Core.Managers
 
             if (targetCell.IsOccupied() && targetCell != originCell)
             {
-                if ((targetCell.Tile is OvenData ovenData) && (tile is IngredientData ingredient))
+                var targetTile = targetCell.Tile;
+
+                if ((targetTile is OvenData ovenData) && (tile is IngredientData ingredient))
                 {
                     if (PCManager.Instance.OvenManager.TrySetToOven(ovenData, ingredient))
                     {
                         movementType = TileMovementType.MoveIngredientToOven;
+
+                        PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnIngredientMovedToOven, new IngredientMovedToOven()
+                        {
+                            Oven = ovenData,
+                            Ingredient = ingredient
+                        });
+
                         return true;
                     }
                 }
 
                 //check for merge
-                if (tile is IngredientData ingredient1 && targetCell.Tile is IngredientData ingredient2)
+                if (tile is IngredientData ingredient1 && targetTile is IngredientData ingredient2)
                 {
                     if (PCManager.Instance.IngredientsManager.TryMergeIngredients(ingredient1, ingredient2, out var mergedTile))
                     {
                         TilesState.Remove(tile);
-                        TilesState.Remove(targetCell.Tile);
+                        TilesState.Remove(targetTile);
 
                         if (Grid.TryMergeTiles(mergedTile, tile.CellData.Position, targetPosition))
                         {
@@ -77,7 +86,9 @@ namespace Assets._PC.Scripts.Core.Managers
                             TilesState.Add(mergedTile);
                             PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnTilesMerged, new TilesMergeEventData()
                                 {
-                                    MergedTile = mergedTile
+                                    MergedTile = mergedTile,
+                                    OriginTile = tile,
+                                    TargetTile = targetTile,
                                 });
                             return true;                         
                         }
@@ -89,9 +100,12 @@ namespace Assets._PC.Scripts.Core.Managers
                     movementType = TileMovementType.MoveToOccupiedCell;
                     PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnTilesPositionUpdate, new TilesPositionUpdateEventData()
                     {
-                        UpdatedTiles = new TileData[2]{ originCell.Tile, targetCell.Tile }
+                        UpdatedTiles = new List<TileMovementData>
+                        {
+                            new TileMovementData() { TileData = tile, OriginPosition = originCell.Position, TargetPosition = targetCell.Position },
+                            new TileMovementData() { TileData = targetTile, OriginPosition = targetCell.Position, TargetPosition = originCell.Position }
+                        }
                     });
-
                     return true;
                 }
             }
@@ -102,7 +116,10 @@ namespace Assets._PC.Scripts.Core.Managers
                     movementType = TileMovementType.MoveToEmptyCell;
                     PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnTilesPositionUpdate, new TilesPositionUpdateEventData()
                     {
-                        UpdatedTiles = new TileData[1] { tile }
+                        UpdatedTiles = new List<TileMovementData>
+                        {
+                            new TileMovementData() { TileData = tile, OriginPosition = originCell.Position, TargetPosition = targetCell.Position } 
+                        }
                     });
 
                     return true;
@@ -138,8 +155,8 @@ namespace Assets._PC.Scripts.Core.Managers
                 PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnTileRemoved, new TileRemovedEventData()
                 {
                     Tile = tile,
-                    Cell = targetCell
                 });
+
                 return true;
             }
 

@@ -21,7 +21,7 @@ namespace Assets._PC.Scripts.Core.Data.Board
 
         public void OnDrop(PointerEventData eventData)
         {
-            eventData.pointerDrag.SendMessage(nameof(TileView.OnDragDrop), Data);
+             Manager.BoardManager.TryMoveTile(eventData.pointerDrag.GetComponent<TileView>().Data, Data.Position, out var movementType);   
         }
     }
 }
