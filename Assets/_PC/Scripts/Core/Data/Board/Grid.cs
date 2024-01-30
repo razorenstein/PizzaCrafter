@@ -76,7 +76,7 @@ namespace Assets._PC.Scripts.Core.Data.Board
                 targetCell = CellsState[position.Row, position.Column];
                 if (targetCell.IsOccupied())
                 {
-                    targetCell.Tile.CellData = null;
+                    targetCell.Tile = null; 
                     _emptyCells.Add(targetCell);
                     return true;
                 }
@@ -97,8 +97,9 @@ namespace Assets._PC.Scripts.Core.Data.Board
                 originCell.Tile = null;
                 targetCell.Tile = tile;
                 tile.CellData = targetCell;
-                _emptyCells.Remove(targetCell);
+
                 _emptyCells.Add(originCell);
+                _emptyCells.Remove(targetCell);
 
                 return true;
             }
@@ -117,6 +118,7 @@ namespace Assets._PC.Scripts.Core.Data.Board
                 targetCell.Tile = mergedTile;
                 mergedTile.CellData = targetCell;
                 _emptyCells.Add(originCell);
+                _emptyCells.Remove(targetCell);
 
                 return true;
             }
@@ -140,7 +142,6 @@ namespace Assets._PC.Scripts.Core.Data.Board
                 // Update the CellData on the swapped tiles to point to their new cells
                 firstCell.Tile.CellData = firstCell;
                 secondCell.Tile.CellData = secondCell;
-
 
                 return true;
             }
