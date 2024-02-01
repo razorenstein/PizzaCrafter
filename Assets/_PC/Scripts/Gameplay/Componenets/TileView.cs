@@ -26,13 +26,16 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             _canvasGroup.blocksRaycasts = true;
         }
 
-        //public async virtual Task OnDragDrop(CellData cellData)
-        //{
-        //    await BoardView.Instance.OnTileDragDrop(cellData);
-        //}
+        public void Activate()
+        {
+            _image.color = Color.white;
+            IsDraggable = true;
+        }
 
         public void Deactivate()
         {
+            //in order to make it clickable to remove from oven
+            _canvasGroup.blocksRaycasts = true;
             _image.color = Color.grey;
             IsDraggable = false;
         }
@@ -46,7 +49,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
         {
             try
             {
-                Sprite loadedSprite = await AddressablesHelper.TryLoadAddressableAsync(addressableKey);
+                Sprite loadedSprite = await AddressablesHelper.TryLoadAddressableAsync(addressableKey);           
                 _image.sprite = loadedSprite;
             }
             catch (Exception ex)

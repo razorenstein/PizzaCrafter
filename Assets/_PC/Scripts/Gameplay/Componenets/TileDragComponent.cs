@@ -25,6 +25,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Helpers
         {
             if (!_itemToDrag.IsDraggable)
                 return;
+
             _boardView = BoardView.Instance;
             _startParent = _itemToDrag.transform.parent;
             //in order to render it above all cells for the drag
@@ -48,6 +49,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Helpers
                 return;
 
             _canvasGroup.blocksRaycasts = true;
+            // after calculating, in case of not positioning the tile well
             if (_itemToDrag.transform.parent == _dragParent)
             {
                 _itemToDrag.transform.position = _startPosition;
