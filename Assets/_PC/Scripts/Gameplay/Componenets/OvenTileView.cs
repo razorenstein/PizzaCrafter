@@ -10,7 +10,10 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
     {
         public void OnPointerClick(PointerEventData eventData)
         {
-            Manager.OvenManager.TryProduceProduct((OvenData)Data);        
+            if (Manager.OvenManager.TryProduceProduct((OvenData)Data))
+            {
+                _image.color = Color.white;
+            }
         }
 
         private void OnIngredientsFormRecipe(PCBaseEventData baseEventData)
