@@ -11,12 +11,12 @@ namespace Assets._PC.Scripts.Core.Data.Ingredients.Abstract
         public int Level { get; private set; }
         public int MaxLevel { get; private set; }
 
-        public IngredientData(IngredientLevelData ingredientConfig)
+        public IngredientData(IngredientLevelData ingredientLevelConfig) : base()
         {
-            IngredientType = ingredientConfig.Type;
-            Level = ingredientConfig.Level;
-            MaxLevel = ingredientConfig.MaxLevel;
-            SpriteAddressableKey = ingredientConfig.SpriteAddressableKey;
+            IngredientType = ingredientLevelConfig.Type;
+            Level = ingredientLevelConfig.Level;
+            MaxLevel = ingredientLevelConfig.MaxLevel;
+            SpriteAddressableKey = ingredientLevelConfig.SpriteAddressableKey;
             Type = TileType.Ingredient;
         }
     }

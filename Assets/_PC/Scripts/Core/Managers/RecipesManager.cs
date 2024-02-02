@@ -5,22 +5,25 @@ using System;
 using System.Collections.Generic;
 using Assets._PC.Scripts.Core.Data.Recipes;
 using Assets._PC.Scripts.Core.Data.Ingredients.Abstract;
+using Assets._PC.Scripts.Core.Data.Ingredients.Config;
+using System.Diagnostics;
+using UnityEngine;
 
 namespace Assets._PC.Scripts.Core.Managers
 {
     public class RecipesManager
     {
-        public Dictionary<RecipeType, RecipeData> Recipes { get; private set; }
+        public Dictionary<ProductType, RecipeData> Recipes { get; private set; }
         private RecipesConfig _config;
 
         public RecipesManager()
         {
-            Recipes = new Dictionary<RecipeType, RecipeData>();
+            Recipes = new Dictionary<ProductType, RecipeData>();
             _config = new RecipesConfig();
-            //PCManager.Instance.ConfigurationManager.GetConfig<RecipesConfig>(OnConfigLoaded);
+            PCManager.Instance.ConfigurationManager.GetConfig<RecipesConfig>(OnConfigLoaded);
         }
 
-        public bool GetRecipe(RecipeType recipeType, out RecipeData recipe)
+        public bool GetRecipe(ProductType recipeType, out RecipeData recipe)
         {
             recipe = null;
 
@@ -34,25 +37,26 @@ namespace Assets._PC.Scripts.Core.Managers
             return false;
         }
 
-        public bool CanCraftRecipe(List<IngredientData> ingredients, out RecipeType recipeType)
+        public bool CanCraftRecipe(List<IngredientLevelData> ingredients, out RecipeData recipeData)
         {
-            recipeType = RecipeType.None;
-            foreach (var recipeData in Recipes.Values)
+            recipeData = null;
+            foreach (var recipe in Recipes.Values)
             {
                 bool canCraft = true;
-                foreach (var requiredIngredient in recipeData.RequiredIngredients)
+                foreach (var requiredIngredient in recipe.RequiredIngredients)
                 {
                     // Check if the player has this required ingredient.
                     if (!ingredients.Contains(requiredIngredient))
                     {
                         canCraft = false;
-                        break; 
+                        break;
                     }
-                    if (canCraft)
-                    {
-                        recipeType = recipeData.Type;
-                        return true; 
-                    }
+                }
+
+                if (canCraft)
+                {
+                    recipeData = recipe;
+                    return true;
                 }
             }
 
@@ -61,7 +65,7 @@ namespace Assets._PC.Scripts.Core.Managers
 
         private void OnConfigLoaded(RecipesConfig config)
         {
-            _config = config;
+            _config = config;           
             Recipes = _config.Recipes;
         }
     }

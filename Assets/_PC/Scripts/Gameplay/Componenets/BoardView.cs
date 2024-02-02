@@ -23,7 +23,6 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
         private GridView _gridView;
         [SerializeField]
         private TileSpawnerManager _tileSpawnerManager;
-        private TileView _currentDraggedTile;
 
         private void Start()
         {
@@ -33,7 +32,6 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
                 Debug.LogError($"{nameof(BoardView)}- Only One Appearance is valid");
 
             _tilesState = new List<TileView>();
-            _currentDraggedTile = null;
             Initialize();
         }
 
@@ -93,6 +91,12 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             await CreateTile(eventData.Tile);
         }
 
+        private void OnTileRemoved(PCBaseEventData baseEventData)
+        {
+            var eventData = (TileRemovedEventData) baseEventData;
+            RemoveTile(eventData.Tile);
+        }
+
         private void OnTilesPositionUpdate(PCBaseEventData baseEventData)
         {
             var eventData = (TilesPositionUpdateEventData)baseEventData;
@@ -111,7 +115,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             if (TryGetTileById(eventData.Ingredient.Id, out var tileView))
             {
                 UpdateTilePosition(tileView, tileView.Data.CellData.Position);
-                tileView.Deactivate();
+                tileView.SetUnDraggable();
             }
         }
 
@@ -139,19 +143,21 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
         private void RegisterEventListeners()
         {
             Manager.EventManager.AddListener(PCEventType.OnTileCreated, OnTileCreated);
+            Manager.EventManager.AddListener(PCEventType.OnTileRemoved, OnTileRemoved);
             Manager.EventManager.AddListener(PCEventType.OnTilesMerged, OnTilesMerged);
             Manager.EventManager.AddListener(PCEventType.OnIngredientMovedToOven, OnIngredientMovedToOven);
             Manager.EventManager.AddListener(PCEventType.OnTilesPositionUpdate, OnTilesPositionUpdate);
-            Manager.EventManager.AddListener(PCEventType.PoolReady, OnPoolReady);
+            Manager.EventManager.AddListener(PCEventType.OnPoolReady, OnPoolReady);
         }
 
         private void UnRegisterEventListeners()
         {
             Manager.EventManager.RemoveListener(PCEventType.OnTileCreated, OnTileCreated);
+            Manager.EventManager.RemoveListener(PCEventType.OnTileRemoved, OnTileRemoved);
             Manager.EventManager.RemoveListener(PCEventType.OnTilesMerged, OnTilesMerged);
             Manager.EventManager.RemoveListener(PCEventType.OnIngredientMovedToOven, OnIngredientMovedToOven);
             Manager.EventManager.RemoveListener(PCEventType.OnTilesPositionUpdate, OnTilesPositionUpdate);
-            Manager.EventManager.RemoveListener(PCEventType.PoolReady, OnPoolReady);
+            Manager.EventManager.RemoveListener(PCEventType.OnPoolReady, OnPoolReady);
         }
 
         private void OnDestroy()

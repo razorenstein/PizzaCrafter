@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfc76f260291ab6429994e003ddbcccc, type: 3}
-  m_Name: IngredientsDataConfig
+  m_Name: IngredientsConfig
   m_EditorClassIdentifier: 
-  Text: "{\r\n  \"Ingredients\": {\r\n    \"0\": {\r\n      \"LevelData\": {\r\n       
+  Text: "{\r\n  \"IngredientLevels\": {\r\n    \"0\": {\r\n      \"LevelData\": {\r\n       
     \"1\": {\r\n          \"Type\": 0,\r\n          \"Level\": 1,\r\n          \"MaxLevel\":
     3,\r\n          \"SpriteAddressableKey\": \"ingredient-cheese-1\"\r\n       
     },\r\n        \"2\": {\r\n          \"Type\": 0,\r\n          \"Level\": 2,\r\n         

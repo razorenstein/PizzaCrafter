@@ -1,5 +1,6 @@
 ﻿using Assets._PC.Scripts.Core.Data.Enums;
 using Assets._PC.Scripts.Core.Data.Ingredients.Abstract;
+using Assets._PC.Scripts.Core.Data.Ingredients.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,8 @@ namespace Assets._PC.Scripts.Core.Data.Recipes
 {
     public class RecipeData
     {
-        public RecipeType Type { get; set; }
-        public IngredientData[] RequiredIngredients { get; set; }
+        public ProductType ProductType { get; set; }
+        public IngredientLevelData[] RequiredIngredients { get; set; }
         public float CraftingTime { get; set; }
-        //public CraftedItem ResultItem { get; set; }
     }
 }

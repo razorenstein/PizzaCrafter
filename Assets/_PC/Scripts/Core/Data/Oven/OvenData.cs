@@ -11,14 +11,8 @@ namespace Assets._PC.Scripts.Core.Data.Oven
 {
     public class OvenData : TileData
     {
-        public Guid Id { get; private set; }
-        public int MaxCapacity { get; set; }
+        public int MaxCapacity { get;  set; }
         public OvenType OvenType { get; set; }
-        public List<IngredientData> Ingredients { get; set; } = new List<IngredientData>();
-
-        public OvenData()
-        {
-            Id = Guid.NewGuid();
-        }
+        public List<IngredientData> CurrentIngredients { get; set; } = new();
     }
 }

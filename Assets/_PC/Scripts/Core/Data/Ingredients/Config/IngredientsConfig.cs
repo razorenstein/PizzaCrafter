@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Assets._PC.Scripts.Core.Data.Ingredients.Config
 {
-    public class IngredientsDataConfig : BaseConfig
+    public class IngredientsConfig : BaseConfig
     {
-        public Dictionary<IngredientType, IngredientConfig> Ingredients;
+        public Dictionary<IngredientType, IngredientLevelsConfig> IngredientLevels { get; set; }
     }
 }

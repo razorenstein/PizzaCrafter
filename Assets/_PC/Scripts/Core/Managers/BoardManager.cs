@@ -18,7 +18,6 @@ namespace Assets._PC.Scripts.Core.Managers
         public ICollection<TileData> TilesState { get; private set; }
         public Grid Grid { get; private set; }
 
-
         public BoardManager(GridSize gridSize)
         {
             Grid = new Grid(gridSize);
@@ -146,21 +145,19 @@ namespace Assets._PC.Scripts.Core.Managers
             return false;
         }
 
-        public bool TryRemoveTile(TileData tile)
+        public void RemoveTiles(List<TileData> tiles)
         {
-            if (Grid.TryRemoveTile(tile.CellData.Position, out var targetCell))
+            foreach (var tile in tiles)
             {
-                TilesState.Remove(tile);
-
-                PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnTileRemoved, new TileRemovedEventData()
+                if (Grid.TryRemoveTile(tile.CellData.Position, out var targetCell))
                 {
-                    Tile = tile,
-                });
-
-                return true;
+                    TilesState.Remove(tile);
+                    PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnTileRemoved, new TileRemovedEventData()
+                    {
+                        Tile = tile,
+                    });
+                }
             }
-
-            return false;
         }
 
         public bool TrySetTileRandomally(TileData tile)

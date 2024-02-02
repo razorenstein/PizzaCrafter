@@ -1,6 +1,7 @@
 ﻿using Assets._PC.Scripts.Core.Components;
 using Assets._PC.Scripts.Core.Data.Board;
 using Assets._PC.Scripts.Gameplay.Componenets.Helpers;
+using CodiceApp.EventTracking;
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -24,15 +25,16 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             Data = data;
             await LoadSprite(data.SpriteAddressableKey);
             _canvasGroup.blocksRaycasts = true;
+            RegisterEventListeners();
         }
 
-        public void Activate()
+        public void SetDraggable()
         {
             _image.color = Color.white;
             IsDraggable = true;
         }
 
-        public void Deactivate()
+        public void SetUnDraggable()
         {
             //in order to make it clickable to remove from oven
             _canvasGroup.blocksRaycasts = true;
@@ -40,10 +42,14 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             IsDraggable = false;
         }
 
-        public void Unload()
+        public virtual void Deinitialize()
         {
             _image.sprite = null;
+            UnRegisterEventListeners();
         }
+
+        protected virtual void RegisterEventListeners() {}
+        protected virtual void UnRegisterEventListeners() {}
 
         private async Task LoadSprite(string addressableKey)
         {

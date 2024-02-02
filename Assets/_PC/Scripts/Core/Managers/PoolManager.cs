@@ -39,7 +39,7 @@ namespace Assets._PC.Scripts.Core.Managers
 
             Pools[poolType] = new PoolData(generateObjects.ToArray(), poolHolder);
 
-            PCManager.Instance.EventManager.InvokeEvent(PCEventType.PoolReady, new PoolReadyEventData
+            PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnPoolReady, new PoolReadyEventData
             {
                 Type = poolType,
             });

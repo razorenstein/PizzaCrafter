@@ -38,7 +38,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners.Abstract
 
         public void RemoveTile(TileView tileView)
         {
-            tileView.Unload();
+            tileView.Deinitialize();
             if (tileView is T tileAsT)
                 Manager.PoolManager.ReturnToPool<T>(_poolType, tileAsT);
         }

@@ -19,9 +19,11 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners
     {
         private Dictionary<TileType, ITileSpawner> _tileSpawners;
         [SerializeField]
+        private ResourceTileSpawner _resourceTileSpawner;
+        [SerializeField]
         private IngredientTileSpawner _ingredientTileSpawner;
         [SerializeField]
-        private ResourceTileSpawner _resourceTileSpawner;
+        private ProductTileSpawner _productTileSpawner;
         [SerializeField]
         private OvenTileSpawner _ovenTileSpawner;
 
@@ -29,8 +31,9 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Spawners
         {
             _tileSpawners = new Dictionary<TileType, ITileSpawner>
             {
-                { TileType.Ingredient, _ingredientTileSpawner },
                 { TileType.Resource, _resourceTileSpawner },
+                { TileType.Ingredient, _ingredientTileSpawner },
+                { TileType.Product, _productTileSpawner },
                 { TileType.Oven, _ovenTileSpawner }
             };
 

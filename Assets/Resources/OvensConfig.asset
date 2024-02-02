@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfc76f260291ab6429994e003ddbcccc, type: 3}
   m_Name: OvensConfig
   m_EditorClassIdentifier: 
-  Text: "{\r\n    \"Ovens\": {\r\n        \"0\": {\r\r\n            \"Type\": 2,\n           
+  Text: "{\r\n    \"Ovens\": {\r\n        \"0\": {\r\r\n            \"Type\": 3,\n           
     \"OvenType\": 0,\n            \"MaxCapacity\": 4,\n            \"SpriteAddressableKey\":
     \"oven_0\"\r\n        }\r\r\n    }\r\n}"

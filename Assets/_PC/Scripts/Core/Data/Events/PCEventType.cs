@@ -8,11 +8,13 @@ namespace Assets._PC.Scripts.Core.Data.Events
 {
     public enum PCEventType
     {
-        PoolReady,
+        OnPoolReady,
         OnTileCreated,
         OnTileRemoved,
         OnTilesMerged,
         OnTilesPositionUpdate,
-        OnIngredientMovedToOven
+        OnIngredientMovedToOven,
+
+        OnOvenIngredientsFormRecipe
     }
 }

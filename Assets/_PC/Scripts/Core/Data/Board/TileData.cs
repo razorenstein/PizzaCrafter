@@ -1,9 +1,5 @@
 ﻿using Assets._PC.Scripts.Core.Data.Enums;
-using Assets._PC.Scripts.Core.Data.Ingredients;
-using Assets._PC.Scripts.Core.Data.Ingredients.Abstract;
 using System;
-using UnityEditor;
-using UnityEngine.Scripting;
 
 namespace Assets._PC.Scripts.Core.Data.Board
 {

@@ -10,9 +10,7 @@ namespace Assets._PC.Scripts.Core.Managers
         public void GetConfig<T>(Action<T> onComplete) where T : BaseConfig
         {
             var config = Resources.Load<FakeConfig>(typeof(T).Name);
-
             var returnValue = JsonConvert.DeserializeObject<T>(config.Text);
-
             onComplete.Invoke(returnValue);
         }
     }

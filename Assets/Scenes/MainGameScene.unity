@@ -226,6 +226,56 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &459983006
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 459983007}
+  - component: {fileID: 459983008}
+  m_Layer: 5
+  m_Name: ProductSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &459983007
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459983006}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1720466649}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &459983008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459983006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b006a839d84050459fe618c8a0240fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tilePrefab: {fileID: 3141855188875425409, guid: 78f6dc773f12b9d48a5ab4f610f6d4ac,
+    type: 3}
 --- !u!1 &569483304
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,6 +875,7 @@ RectTransform:
   - {fileID: 685061810}
   - {fileID: 1396915335}
   - {fileID: 1527658067}
+  - {fileID: 459983007}
   m_Father: {fileID: 1263482653}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -844,8 +895,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1abf07e2e3706e4d9f9cee511cd5da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ingredientTileSpawner: {fileID: 1396915336}
   _resourceTileSpawner: {fileID: 685061811}
+  _ingredientTileSpawner: {fileID: 1396915336}
+  _productTileSpawner: {fileID: 459983008}
   _ovenTileSpawner: {fileID: 1527658068}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

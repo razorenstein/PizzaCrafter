@@ -18,7 +18,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             {
                 var ingredientData = (IngredientData)Data;
                 Manager.OvenManager.RemoveFromOven(ingredientData);
-                Activate();
+                SetDraggable();
             }
         }
     }

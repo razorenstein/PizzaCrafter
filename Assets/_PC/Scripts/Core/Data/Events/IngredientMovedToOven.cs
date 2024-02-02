@@ -14,5 +14,4 @@ namespace Assets._PC.Scripts.Core.Data.Events
         public OvenData Oven { get; set; }
         public IngredientData Ingredient { get; set; }
     }
-
 }

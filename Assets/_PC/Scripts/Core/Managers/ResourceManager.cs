@@ -22,7 +22,7 @@ namespace Assets._PC.Scripts.Core.Managers
             PCManager.Instance.ConfigurationManager.GetConfig<ResourcesConfig>(OnConfigLoaded);
         }
 
-        public bool TryLootResource(ResourceType resourceType)
+        public bool TryProduceIngredient(ResourceType resourceType)
         {
             if (Resources.TryGetValue(resourceType, out var resourceData))
             {

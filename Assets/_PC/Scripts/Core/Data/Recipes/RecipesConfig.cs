@@ -11,6 +11,6 @@ namespace Assets._PC.Scripts.Core.Data.Resources.Config
 {
     public class RecipesConfig : BaseConfig
     {
-        public Dictionary<RecipeType, RecipeData> Recipes;
+        public Dictionary<ProductType, RecipeData> Recipes { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Assets._PC.Scripts.Core.Data.Ingredients.Config
 {
-    public class IngredientConfig
+    public class IngredientLevelsConfig
     {
-        public Dictionary<int, IngredientLevelData> LevelData;
+        public Dictionary<int, IngredientLevelData> LevelData { get; set; }
     }
 }

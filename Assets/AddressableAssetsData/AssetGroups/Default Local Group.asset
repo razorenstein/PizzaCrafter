@@ -67,7 +67,8 @@ MonoBehaviour:
   - m_GUID: da6e3d6339eee5a40b1be7da47cb5976
     m_Address: ResourceTile
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Tiles
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ee41020435fea4a44b6801047a243e36
     m_Address: ingredient-flour-2
@@ -87,10 +88,22 @@ MonoBehaviour:
   - m_GUID: e8bde052c80f56743a84d1bf6c31cd43
     m_Address: OvenTile
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Tiles
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 15571676f0c94b64e8d6436a8dc7282f
     m_Address: oven_0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 78f6dc773f12b9d48a5ab4f610f6d4ac
+    m_Address: ProductTile
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tiles
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f8429999849b4f745bcd827dbc841a23
+    m_Address: product-margherita_pizza-1
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

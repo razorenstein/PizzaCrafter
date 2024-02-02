@@ -11,6 +11,6 @@ namespace Assets._PC.Scripts.Core.Data.Resources.Config
 {
     public class ResourcesConfig : BaseConfig
     {
-        public Dictionary<ResourceType, ResourceData> Resources;
+        public Dictionary<ResourceType, ResourceData> Resources { get; set; }
     }
 }

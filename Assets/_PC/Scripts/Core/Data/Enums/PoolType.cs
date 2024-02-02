@@ -8,8 +8,9 @@ namespace Assets._PC.Scripts.Core.Data.Enums
 {
     public enum PoolType
     {
-        IngredientTile,
         ResourceTile,
+        IngredientTile,
+        ProductTile,
         OvenTile,
         Cell
     }

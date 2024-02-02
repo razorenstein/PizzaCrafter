@@ -6,6 +6,6 @@ namespace Assets._PC.Scripts.Core.Data.Oven
 {
     public class OvensConfig : BaseConfig
     {
-        public Dictionary<OvenType, OvenData> Ovens;
+        public Dictionary<OvenType, OvenData> Ovens { get; set; }
     }
 }

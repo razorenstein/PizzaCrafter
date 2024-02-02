@@ -13,7 +13,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
         public void OnPointerClick(PointerEventData eventData)
         {      
             var resourcedata = (ResourceData) Data;
-            Manager.ResourceManager.TryLootResource(resourcedata.ResourceType);
+            Manager.ResourceManager.TryProduceIngredient(resourcedata.ResourceType);
         }
     }
 }
