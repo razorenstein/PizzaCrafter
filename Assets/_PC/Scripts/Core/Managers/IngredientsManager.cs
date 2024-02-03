@@ -1,10 +1,11 @@
 ﻿using Assets._PC.Scripts.Core.Data;
+using Assets._PC.Scripts.Core.Data.Board;
 using Assets._PC.Scripts.Core.Data.Ingredients.Abstract;
 using Assets._PC.Scripts.Core.Data.Ingredients.Config;
 
 namespace Assets._PC.Scripts.Core.Managers
 {
-    public class IngredientsManager
+    public class IngredientsManager : IMerge
     {
         private IngredientsConfig _config;
 
@@ -29,21 +30,21 @@ namespace Assets._PC.Scripts.Core.Managers
             return false;
         }
 
-        public bool TryMergeIngredients(IngredientData ingredient1, IngredientData ingredient2, out IngredientData mergedIngredient)
+        public bool TryMerge(TileData first, TileData second, out TileData merged)
         {
-            mergedIngredient = null;
-
-            if (ingredient1.IngredientType == ingredient2.IngredientType
-                && ingredient1.Level == ingredient2.Level
-                && !IsMaxLevel(ingredient1))
+            merged = null;
+            if (first is IngredientData firstIngredient && second is IngredientData secondIngredient)
             {
-                if (_config.IngredientLevels.TryGetValue(ingredient1.IngredientType, out var ingredientDataConfig))
+                if (firstIngredient.IngredientType == secondIngredient.IngredientType)
                 {
-                    if (ingredientDataConfig.LevelData.TryGetValue(ingredient1.Level + 1, out var levelDataConfig))
+                    if (_config.IngredientLevels.TryGetValue(firstIngredient.IngredientType, out var ingredientDataConfig))
                     {
-                        mergedIngredient = new IngredientData(levelDataConfig);
+                        if (ingredientDataConfig.LevelData.TryGetValue(firstIngredient.Level + 1, out var levelDataConfig))
+                        {
+                            merged = new IngredientData(levelDataConfig);
 
-                        return true;
+                            return true;
+                        }
                     }
                 }
             }
@@ -54,6 +55,5 @@ namespace Assets._PC.Scripts.Core.Managers
         public bool IsResourceLevel(IngredientData ingredientData) => ingredientData.Level == 0;
         public bool IsMaxLevel(IngredientData ingredientData) => ingredientData.Level == ingredientData.MaxLevel;
         private void OnConfigLoaded(IngredientsConfig config) => _config = config;
-
     }
 }

@@ -24,6 +24,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
         {
             Data = data;
             await LoadSprite(data.SpriteAddressableKey);
+            SetDraggable();
             _canvasGroup.blocksRaycasts = true;
             RegisterEventListeners();
         }

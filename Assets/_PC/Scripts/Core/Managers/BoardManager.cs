@@ -55,45 +55,26 @@ namespace Assets._PC.Scripts.Core.Managers
             {
                 var targetTile = targetCell.Tile;
 
+                //Ingredient set to oven
                 if ((targetTile is OvenData ovenData) && (tile is IngredientData ingredient))
                 {
                     if (PCManager.Instance.OvenManager.TrySetToOven(ovenData, ingredient))
                     {
                         movementType = TileMovementType.MoveIngredientToOven;
-
-                        PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnIngredientMovedToOven, new IngredientMovedToOven()
-                        {
-                            Oven = ovenData,
-                            Ingredient = ingredient
-                        });
-
                         return true;
                     }
                 }
-
-                //check for merge
-                if (tile is IngredientData ingredient1 && targetTile is IngredientData ingredient2)
+                //two mergables
+                if (PCManager.Instance.MergeManager.TryMerge(tile, targetTile, out TileData merged))
                 {
-                    if (PCManager.Instance.IngredientsManager.TryMergeIngredients(ingredient1, ingredient2, out var mergedTile))
+                    RemoveTiles(new List<TileData> { tile, targetTile });
+                    if (TrySetTile(merged, targetPosition))
                     {
-                        TilesState.Remove(tile);
-                        TilesState.Remove(targetTile);
-
-                        if (Grid.TryMergeTiles(mergedTile, tile.CellData.Position, targetPosition))
-                        {
-                            movementType = TileMovementType.MergeTiles;
-                            TilesState.Add(mergedTile);
-                            PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnTilesMerged, new TilesMergeEventData()
-                                {
-                                    MergedTile = mergedTile,
-                                    OriginTile = tile,
-                                    TargetTile = targetTile,
-                                });
-                            return true;                         
-                        }
+                        movementType = TileMovementType.MergeTiles;
+                        return true;
                     }
                 }
-
+                // switch positions
                 if (Grid.TrySwitchTilesPositions(tile.CellData.Position, targetPosition))
                 {
                     movementType = TileMovementType.MoveToOccupiedCell;
@@ -108,8 +89,9 @@ namespace Assets._PC.Scripts.Core.Managers
                     return true;
                 }
             }
-            else
+            else // target cell is not occupied
             {
+                //regular move to empty cell
                 if (Grid.TryMoveTile(tile, targetPosition, out targetCell))
                 {
                     movementType = TileMovementType.MoveToEmptyCell;

@@ -9,6 +9,8 @@ namespace Assets._PC.Scripts.Core.Data.Board
         public CellData CellData { get; set; }
         public TileType Type { get; set; }
         public string SpriteAddressableKey { get; set; }
+        public int Level { get; set; }
+        public int MaxLevel { get; set; }
 
         public TileData()
         {

@@ -14,7 +14,6 @@ namespace Assets._PC.Scripts.Core.Data.Board
         public GridSize GridSize { get; private set; }
         private List<CellData> _emptyCells { get; set; }
 
-
         public Grid(GridSize gridSize)
         {
             GridSize = gridSize;
@@ -107,24 +106,24 @@ namespace Assets._PC.Scripts.Core.Data.Board
             return false;
         }
 
-        public bool TryMergeTiles(TileData mergedTile, GridPosition firstPosition, GridPosition secondPosition)
-        {
-            if (IsPositionValid(firstPosition) && IsPositionValid(secondPosition))
-            {
-                var originCell = CellsState[firstPosition.Row, firstPosition.Column];
-                var targetCell = CellsState[secondPosition.Row, secondPosition.Column];
+        //public bool TryMergeTiles(TileData mergedTile, GridPosition firstPosition, GridPosition secondPosition)
+        //{
+        //    if (IsPositionValid(firstPosition) && IsPositionValid(secondPosition))
+        //    {
+        //        var originCell = CellsState[firstPosition.Row, firstPosition.Column];
+        //        var targetCell = CellsState[secondPosition.Row, secondPosition.Column];
 
-                originCell.Tile = null;
-                targetCell.Tile = mergedTile;
-                mergedTile.CellData = targetCell;
-                _emptyCells.Add(originCell);
-                _emptyCells.Remove(targetCell);
+        //        originCell.Tile = null;
+        //        targetCell.Tile = mergedTile;
+        //        mergedTile.CellData = targetCell;
+        //        _emptyCells.Add(originCell);
+        //        _emptyCells.Remove(targetCell);
 
-                return true;
-            }
+        //        return true;
+        //    }
 
-            return false;
-        }
+        //    return false;
+        //}
 
         public bool TrySwitchTilesPositions(GridPosition firstPosition, GridPosition secondPosition)
         {
