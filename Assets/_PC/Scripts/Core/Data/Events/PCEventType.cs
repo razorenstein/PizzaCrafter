@@ -14,7 +14,8 @@ namespace Assets._PC.Scripts.Core.Data.Events
         OnTilesMerged,
         OnTilesPositionUpdate,
         OnIngredientMovedToOven,
-
+        OnOrderConditionsFulfilled, //all the conditions are satisfied
+        OnOrderCompleted,
         OnOvenIngredientsFormRecipe
     }
 }

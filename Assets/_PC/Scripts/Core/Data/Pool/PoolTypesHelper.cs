@@ -14,6 +14,7 @@ namespace Assets._PC.Scripts.Core.Data.Pool
                 PoolType.ProductTile => "ProductTile",
                 PoolType.OvenTile => "OvenTile",
                 PoolType.Cell => "Cell",
+                PoolType.Order => "Order",
                 _ => throw new NotImplementedException("No mapping between pool class type and adressable name")
             };
         }
@@ -26,7 +27,7 @@ namespace Assets._PC.Scripts.Core.Data.Pool
                 PoolType.IngredientTile => TileType.Ingredient,
                 PoolType.ProductTile => TileType.Product,
                 PoolType.OvenTile => TileType.Oven,
-                _ => throw new NotImplementedException("No mapping between pool class type and adressable name")
+                _ => TileType.None
             };
         }
     }

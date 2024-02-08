@@ -34,16 +34,24 @@ namespace Assets._PC.Scripts.Core.Managers
 
         private async Task<T> GenerateObjectAsync<T>(string addressableKey) where T : Component
         {
-            var handle = Addressables.InstantiateAsync(addressableKey);
-            await handle.Task;
-
-            if (handle.Status == AsyncOperationStatus.Succeeded)
+            try
             {
-                var original = handle.Result;
-                return original.GetComponent<T>();
+                var handle = Addressables.InstantiateAsync(addressableKey);
+                await handle.Task;
+
+                if (handle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    var original = handle.Result;
+                    return original.GetComponent<T>();
+                }
+
+                //Manager.MonitorManager.ReportException($"Failed to load asset with key: {addressableKey}");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
             }
 
-            //Manager.MonitorManager.ReportException($"Failed to load asset with key: {addressableKey}");
             return null;
         }
     }

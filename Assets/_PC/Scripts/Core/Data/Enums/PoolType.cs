@@ -12,6 +12,7 @@ namespace Assets._PC.Scripts.Core.Data.Enums
         IngredientTile,
         ProductTile,
         OvenTile,
-        Cell
+        Cell,
+        Order
     }
 }

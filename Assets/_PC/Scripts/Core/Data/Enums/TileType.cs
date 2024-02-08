@@ -11,6 +11,7 @@ namespace Assets._PC.Scripts.Core.Data.Enums
         Resource,
         Ingredient,
         Product,
-        Oven
+        Oven,
+        None
     }
 }

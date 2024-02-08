@@ -23,7 +23,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
         public async virtual Task Initialize(TileData data)
         {
             Data = data;
-            await LoadSprite(data.SpriteAddressableKey);
+            _image.sprite = await AddressablesHelper.TryLoadAddressableAsync(data.SpriteAddressableKey);
             SetDraggable();
             _canvasGroup.blocksRaycasts = true;
             RegisterEventListeners();
@@ -51,18 +51,5 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
 
         protected virtual void RegisterEventListeners() {}
         protected virtual void UnRegisterEventListeners() {}
-
-        private async Task LoadSprite(string addressableKey)
-        {
-            try
-            {
-                Sprite loadedSprite = await AddressablesHelper.TryLoadAddressableAsync(addressableKey);           
-                _image.sprite = loadedSprite;
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError(ex.Message);
-            }
-        }
     }
 }

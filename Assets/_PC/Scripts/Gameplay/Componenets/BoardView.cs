@@ -130,7 +130,9 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
         private async void OnPoolReady(PCBaseEventData baseEventData)
         {
             var eventData = (PoolReadyEventData) baseEventData;
-            await SpawnTiles(PoolTypesHelper.MapToTileType(eventData.Type));
+            var tileType = PoolTypesHelper.MapToTileType(eventData.Type);
+            if (tileType != TileType.None)
+                await SpawnTiles(tileType);
         }
 
         private void UpdateTilePosition(TileView tile, GridPosition targetPosition)

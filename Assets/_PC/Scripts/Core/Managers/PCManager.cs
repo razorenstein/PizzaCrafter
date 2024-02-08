@@ -24,6 +24,7 @@ namespace Assets._PC.Scripts.Core.Managers
         public ProductManager ProductManager;
         public OvenManager OvenManager;
         public RecipesManager RecipesManager;
+        public OrdersManager OrdersManager;
         public MergeManager MergeManager;
         public BoardManager BoardManager;
 
@@ -44,6 +45,7 @@ namespace Assets._PC.Scripts.Core.Managers
             ProductManager = new ProductManager();
             OvenManager = new OvenManager();
             RecipesManager = new RecipesManager();
+            OrdersManager = new OrdersManager();
             MergeManager = new MergeManager();
             BoardManager = new BoardManager(new GridSize(_boardRows, _boardCols));
         }
