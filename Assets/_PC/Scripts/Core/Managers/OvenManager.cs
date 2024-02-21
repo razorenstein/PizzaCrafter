@@ -59,7 +59,7 @@ namespace Assets._PC.Scripts.Core.Managers
                     {
                         PCManager.Instance.BoardManager.RemoveTiles(oven.CurrentIngredients.Select(i => i as TileData).ToList());
                         oven.CurrentIngredients.Clear();
-                        PCManager.Instance.OrdersManager.CheckForCompletedOrders();
+                        PCManager.Instance.OrdersManager.CheckForConditionsSatisfiedOrders();
 
                         return true;
                     }

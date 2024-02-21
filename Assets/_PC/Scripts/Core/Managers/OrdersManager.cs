@@ -35,7 +35,7 @@ namespace Assets._PC.Scripts.Core.Managers
                 {
                     PCManager.Instance.BoardManager.RemoveTiles(products.Select(t => t as TileData).ToList());
                     Orders.Remove(orderId);
-
+                    CheckForConditionsSatisfiedOrders();
                     PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnOrderCompleted, new OrderCompletedEventData()
                     {
                         OrderId = orderId
@@ -49,26 +49,34 @@ namespace Assets._PC.Scripts.Core.Managers
             return false;
         }
 
-        public void CheckForCompletedOrders()
+        public void CheckForConditionsSatisfiedOrders()
         {
+            var satisfiedOrders = new List<Guid>();
+
             foreach (var order in Orders)
             {
                 if (IsOrderSatisfied(order.Value, out _))
                 {
-                    PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnOrderConditionsFulfilled, new OrderConditionsFulfilledEventData()
-                    {
-                        OrderId = order.Key
-                    });
+                    satisfiedOrders.Add(order.Key);
                 }
             }
+
+            PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnOrderConditionsFulfilled, new OrderConditionsFulfilledEventData()
+            {
+                OrdersIds = satisfiedOrders
+            });
         }
 
         private bool IsOrderSatisfied(OrderData order, out List<ProductData> products)
         {
             products = GetProductsFromBoard(order.ProductType);
-            if (products.Count() == order.Amount)
+            if (products.Count() >= order.Amount)
+            {
+                order.IsOrderConditionsFulfilled = true;
                 return true;
-            
+            }
+
+            order.IsOrderConditionsFulfilled = false;
             return false;
         }
 

@@ -14,19 +14,29 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
     {
         public OrderData Data { get; private set; }
         [SerializeField]
-        private Image _recipeImage;
+        private Image _orderProductImage;
+        [SerializeField]
+        private Color _fulfilledBGColor;
+        [SerializeField]
+        private Color _unfulfilledBGColor;
+        [SerializeField]
+        private Image _orderBGImage;
         [SerializeField]
         private TMP_Text _amountText;
         [SerializeField]
         private TMP_Text _rewardText;
-        private bool _isFulfilled = false;
 
         public async virtual Task Initialize(OrderData data)
         {
             Data = data;
-            _recipeImage.sprite = await AddressablesHelper.TryLoadAddressableAsync(data.ProductData.SpriteAddressableKey);
+            _orderProductImage.sprite = await AddressablesHelper.TryLoadAddressableAsync(data.ProductData.SpriteAddressableKey);
             _amountText.text = "X" + data.Amount.ToString();
             _rewardText.text = data.Reward.ToString();
+
+            if(data.IsOrderConditionsFulfilled)
+                SetFulfilled();
+            else
+                SetUnFulfilled();
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -36,8 +46,12 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
 
         public void SetFulfilled()
         {
-            _isFulfilled = true;
-            _recipeImage.color = Color.red;
+            _orderBGImage.color = _fulfilledBGColor;
+        }
+
+        public void SetUnFulfilled()
+        {
+            _orderBGImage.color = _unfulfilledBGColor;
         }
     }
 }

@@ -22,7 +22,6 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
         private void Initialize()
         {
             Manager.PoolManager.InitPool<OrderComponent>(PoolType.Order, 10);
-
             RegisterEventListeners();
         }
 
@@ -45,8 +44,13 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
         private void OnOrderConditionsFulfilled(PCBaseEventData baseEventData)
         {
             var eventData = (OrderConditionsFulfilledEventData)baseEventData;
-            var orderComponent = _ordersState.Where(x => x.Data.Id == eventData.OrderId).FirstOrDefault();
-            orderComponent.SetFulfilled();
+            foreach (var orderComponent in _ordersState) 
+            {
+                if(orderComponent.Data.IsOrderConditionsFulfilled)
+                    orderComponent.SetFulfilled();
+                else
+                    orderComponent.SetUnFulfilled();
+            }
         }
 
         private void OnPoolReady(PCBaseEventData baseEventData)
