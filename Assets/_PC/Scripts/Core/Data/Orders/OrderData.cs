@@ -12,6 +12,7 @@ namespace Assets._PC.Scripts.Core.Data.Orders
         public ProductData ProductData { get; set; }
         public int Amount { get; set; }
         public int Reward { get; set; }
+        public int ExpiryDurationSeconds { get; set; }
         public bool IsOrderConditionsFulfilled { get; set; } = false;
 
         public OrderData()

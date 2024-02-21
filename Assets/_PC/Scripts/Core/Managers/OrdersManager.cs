@@ -49,6 +49,18 @@ namespace Assets._PC.Scripts.Core.Managers
             return false;
         }
 
+        public void RemoveExpiredOrder(Guid orderId)
+        {
+            if (Orders.TryGetValue(orderId, out OrderData orderData))
+            {
+                Orders.Remove(orderId);
+                PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnOrderExpired, new OrderExpiredEventData()
+                {
+                    OrderId = orderId
+                });
+            }
+        }
+
         public void CheckForConditionsSatisfiedOrders()
         {
             var satisfiedOrders = new List<Guid>();

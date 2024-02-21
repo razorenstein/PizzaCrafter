@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 
 namespace Assets._PC.Scripts.Gameplay.Componenets
 {
-    public class OrdersManager : PCMonoBehaviour
+    public class OrdersUIManager : PCMonoBehaviour
     {
         private List<OrderComponent> _ordersState;
 
@@ -32,6 +32,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             _ordersState.Add(orderComponent);
             orderComponent.transform.SetParent(this.transform, false);
             orderComponent.gameObject.SetActive(true);
+            orderComponent.StartTimer();
         }
 
         private void RemoveOrder(Guid orderId)
@@ -71,11 +72,18 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             RemoveOrder(eventData.OrderId);
         }
 
+        private void OnOrderExpired(PCBaseEventData baseEventData)
+        {
+            var eventData = (OrderExpiredEventData)baseEventData;
+            RemoveOrder(eventData.OrderId);
+        }
+
         private void RegisterEventListeners()
         {
             Manager.EventManager.AddListener(PCEventType.OnPoolReady, OnPoolReady);
             Manager.EventManager.AddListener(PCEventType.OnOrderConditionsFulfilled, OnOrderConditionsFulfilled);
             Manager.EventManager.AddListener(PCEventType.OnOrderCompleted, OnOrderCompleted);
+            Manager.EventManager.AddListener(PCEventType.OnOrderExpired, OnOrderExpired);
         }
 
 
@@ -84,6 +92,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             Manager.EventManager.RemoveListener(PCEventType.OnPoolReady, OnPoolReady);
             Manager.EventManager.RemoveListener(PCEventType.OnOrderConditionsFulfilled, OnOrderConditionsFulfilled);
             Manager.EventManager.AddListener(PCEventType.OnOrderCompleted, OnOrderCompleted);
+            Manager.EventManager.RemoveListener(PCEventType.OnOrderCompleted, OnOrderCompleted);
         }
 
         private void OnDestroy()

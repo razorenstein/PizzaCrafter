@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: OrdersConfig
   m_EditorClassIdentifier: 
   Text: "{\r\n  \"Orders\": [\r\n    {\r\n      \"ProductType\": 0, \r\n      \"Amount\":
-    1,\r\n      \"Reward\": 100\r\n    },\r\n    {\r\n      \"ProductType\": 0,\r\n     
-    \"Amount\": 3,\r\n      \"Reward\": 75\r\n    }\r\n  ]\r\n}"
+    1,\r\n      \"Reward\": 75,\n      \"ExpiryDurationSeconds\": 30\r\n    },\r\n   
+    {\r\n      \"ProductType\": 0,\r\n      \"Amount\": 3,\r\n      \"Reward\": 100,\n     
+    \"ExpiryDurationSeconds\": 50\r\n    }\r\n  ]\r\n}"

@@ -16,6 +16,7 @@ namespace Assets._PC.Scripts.Core.Data.Events
         OnIngredientMovedToOven,
         OnOrderConditionsFulfilled, //all the conditions are satisfied
         OnOrderCompleted,
+        OnOrderExpired,
         OnOvenIngredientsFormRecipe
     }
 }
