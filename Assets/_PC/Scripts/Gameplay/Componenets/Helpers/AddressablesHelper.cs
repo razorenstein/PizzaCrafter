@@ -12,8 +12,7 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Helpers
         public static async Task<Sprite> TryLoadAddressableAsync(string addressableKey)
         {
             AsyncOperationHandle<Sprite> handle = Addressables.LoadAssetAsync<Sprite>(addressableKey);
-            await handle.Task; // Wait for the operation to complete.
-
+            await handle.Task; 
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
                 return handle.Result;

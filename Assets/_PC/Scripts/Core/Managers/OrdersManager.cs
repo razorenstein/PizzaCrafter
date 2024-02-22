@@ -1,17 +1,12 @@
 ﻿using Assets._PC.Scripts.Core.Data.Board;
+using Assets._PC.Scripts.Core.Data.Currency;
 using Assets._PC.Scripts.Core.Data.Enums;
 using Assets._PC.Scripts.Core.Data.Events;
-using Assets._PC.Scripts.Core.Data.Ingredients.Config;
 using Assets._PC.Scripts.Core.Data.Orders;
-using Assets._PC.Scripts.Core.Data.Oven;
 using Assets._PC.Scripts.Core.Data.Products;
-using Assets._PC.Scripts.Core.Data.Recipes;
-using Assets._PC.Scripts.Core.Data.Resources.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assets._PC.Scripts.Core.Managers
 {
@@ -35,6 +30,7 @@ namespace Assets._PC.Scripts.Core.Managers
                 {
                     PCManager.Instance.BoardManager.RemoveTiles(products.Select(t => t as TileData).ToList());
                     Orders.Remove(orderId);
+                    PCManager.Instance.CurrencyManager.AddCurrencies(CurrencyType.Coin, orderData.Reward);
                     CheckForConditionsSatisfiedOrders();
                     PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnOrderCompleted, new OrderCompletedEventData()
                     {

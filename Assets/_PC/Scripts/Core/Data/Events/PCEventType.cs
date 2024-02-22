@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Assets._PC.Scripts.Core.Data.Events
+﻿namespace Assets._PC.Scripts.Core.Data.Events
 {
     public enum PCEventType
     {
         OnPoolReady,
+        //BoardTiles
         OnTileCreated,
         OnTileRemoved,
         OnTilesMerged,
         OnTilesPositionUpdate,
         OnIngredientMovedToOven,
+        //Orders
         OnOrderConditionsFulfilled, //all the conditions are satisfied
         OnOrderCompleted,
         OnOrderExpired,
-        OnOvenIngredientsFormRecipe
+        OnOvenIngredientsFormRecipe,
+        //Currencies
+        OnCurrenciesUpdated
     }
 }

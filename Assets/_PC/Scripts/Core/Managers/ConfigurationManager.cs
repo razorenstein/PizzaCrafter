@@ -13,6 +13,6 @@ namespace Assets._PC.Scripts.Core.Managers
             var returnValue = JsonConvert.DeserializeObject<T>(config.Text);
             onComplete.Invoke(returnValue);
         }
-    }
+    } 
 }
 

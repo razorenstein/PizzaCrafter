@@ -19,6 +19,7 @@ namespace Assets._PC.Scripts.Core.Managers
         public PoolManager PoolManager;
 
         //Gameplay
+        public CurrencyManager CurrencyManager;
         public ResourceManager ResourceManager;
         public IngredientsManager IngredientsManager;
         public ProductManager ProductManager;
@@ -35,11 +36,14 @@ namespace Assets._PC.Scripts.Core.Managers
             else
                 Debug.LogError($"{nameof(PCManager)}- Only One Appearance is valid");
 
+            //Core
             EventManager = new PCEventManager<PCBaseEventData>();
             ConfigurationManager = new ConfigurationManager();
             PoolManager = new PoolManager();
             FactoryManager = new FactoryManager();
 
+            //Gameplay
+            CurrencyManager = new CurrencyManager();
             ResourceManager = new ResourceManager();
             IngredientsManager = new IngredientsManager();
             ProductManager = new ProductManager();
