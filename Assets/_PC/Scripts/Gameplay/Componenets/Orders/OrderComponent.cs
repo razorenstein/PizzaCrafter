@@ -2,6 +2,7 @@
 using Assets._PC.Scripts.Core.Data.Orders;
 using Assets._PC.Scripts.Gameplay.Componenets.Helpers;
 using Assets._PC.Scripts.Gameplay.Componenets.Orders;
+using System;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -10,23 +11,16 @@ using UnityEngine.UI;
 
 namespace Assets._PC.Scripts.Gameplay.Componenets
 {
-    public class OrderComponent : PCMonoBehaviour, IPointerClickHandler
+    public class OrderComponent : PCMonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         public OrderData Data { get; private set; }
-        [SerializeField]
-        TimerComponent _timer;
-        [SerializeField]
-        private Image _orderProductImage;
-        [SerializeField]
-        private Color _fulfilledBGColor;
-        [SerializeField]
-        private Color _unfulfilledBGColor;
-        [SerializeField]
-        private Image _orderBGImage;
-        [SerializeField]
-        private TMP_Text _amountText;
-        [SerializeField]
-        private TMP_Text _rewardText;
+        [SerializeField] TimerComponent _timer;
+        [SerializeField] private Image _orderProductImage;
+        [SerializeField] private Color _fulfilledBGColor;
+        [SerializeField] private Color _unfulfilledBGColor;
+        [SerializeField] private Image _orderBGImage;
+        [SerializeField] private TMP_Text _amountText;
+        [SerializeField] private TMP_Text _rewardText;
 
         public async virtual Task Initialize(OrderData data)
         {
@@ -46,9 +40,23 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             _timer.Initialize(Data.Id, Data.ExpiryDurationSeconds);
         }
 
-        public void OnPointerClick(PointerEventData eventData)
+        //public void OnPointerClick(PointerEventData eventData)
+        //{
+        //    Manager.OrdersManager.TryCompleteOrder(Data.Id);
+        //}
+
+        public void OnPointerDown(PointerEventData eventData)
         {
-            Manager.OrdersManager.TryCompleteOrder(Data.Id);
+            if (Data.IsOrderConditionsFulfilled)
+                Manager.OrdersManager.TryCompleteOrder(Data.Id);
+            else
+                Manager.OrdersManager.TryGetOrderInstructions(Data.Id, out var recipeData);
+        }
+
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            Debug.Log("Up");
         }
 
         public void SetFulfilled()

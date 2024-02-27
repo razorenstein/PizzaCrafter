@@ -15,6 +15,7 @@ namespace Assets._PC.Scripts.Core.Data.Pool
                 PoolType.OvenTile => "OvenTile",
                 PoolType.Cell => "Cell",
                 PoolType.Order => "Order",
+                PoolType.OrderInstructionsItem => "OrderInstructionsItem",
                 _ => throw new NotImplementedException("No mapping between pool class type and adressable name")
             };
         }

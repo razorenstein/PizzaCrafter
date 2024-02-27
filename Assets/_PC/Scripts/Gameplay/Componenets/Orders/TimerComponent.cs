@@ -9,17 +9,14 @@ namespace Assets._PC.Scripts.Gameplay.Componenets.Orders
     public class TimerComponent : PCMonoBehaviour
     {
         private Guid _orderId;
-        [SerializeField]
-        private Slider _timerSlider;
+        [SerializeField] private Slider _timerSlider;
 
         public void Initialize(Guid orderId, int durationInSeconds)
         {
             _orderId = orderId;
-            if (!gameObject.activeInHierarchy)
-            {
-                Debug.LogWarning("GameObject is inactive! Coroutine won't start.");
+            if (!gameObject.activeInHierarchy)            
                 return; // Exit the method to avoid attempting to start the coroutine
-            }
+            
             StartTimer(durationInSeconds);
         }
 

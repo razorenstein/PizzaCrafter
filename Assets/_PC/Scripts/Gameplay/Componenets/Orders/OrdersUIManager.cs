@@ -2,15 +2,19 @@
 using Assets._PC.Scripts.Core.Data.Enums;
 using Assets._PC.Scripts.Core.Data.Events;
 using Assets._PC.Scripts.Core.Data.Orders;
+using Assets._PC.Scripts.Gameplay.Componenets.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Assets._PC.Scripts.Gameplay.Componenets
 {
     public class OrdersUIManager : PCMonoBehaviour
     {
+        [SerializeField] private OrderInstructionPopUpComponent _orderInstructionPopUpComponent;
         private List<OrderComponent> _ordersState;
 
         private void Start()
@@ -22,6 +26,8 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
         private void Initialize()
         {
             Manager.PoolManager.InitPool<OrderComponent>(PoolType.Order, 10);
+            Manager.PoolManager.InitPool<OrderInstructionsItemComponent>(PoolType.OrderInstructionsItem, 10);
+            //_orderInstructionPopUpComponent.gameObject.SetActive(false);
             RegisterEventListeners();
         }
 
@@ -78,21 +84,29 @@ namespace Assets._PC.Scripts.Gameplay.Componenets
             RemoveOrder(eventData.OrderId);
         }
 
+        private async void OnOrderInstructionsPopUpClicked(PCBaseEventData baseEventData)
+        {
+            var eventData = (OrderInstructionsPopUpClickedEventData)baseEventData;
+            await _orderInstructionPopUpComponent.Initialize(eventData.RecipeData);
+            _orderInstructionPopUpComponent.gameObject.SetActive(true);
+        }
+
         private void RegisterEventListeners()
         {
             Manager.EventManager.AddListener(PCEventType.OnPoolReady, OnPoolReady);
             Manager.EventManager.AddListener(PCEventType.OnOrderConditionsFulfilled, OnOrderConditionsFulfilled);
             Manager.EventManager.AddListener(PCEventType.OnOrderCompleted, OnOrderCompleted);
             Manager.EventManager.AddListener(PCEventType.OnOrderExpired, OnOrderExpired);
+            Manager.EventManager.AddListener(PCEventType.OnOrderInstructionsPopUpClicked, OnOrderInstructionsPopUpClicked);
         }
-
 
         private void UnRegisterEventListeners()
         {
             Manager.EventManager.RemoveListener(PCEventType.OnPoolReady, OnPoolReady);
             Manager.EventManager.RemoveListener(PCEventType.OnOrderConditionsFulfilled, OnOrderConditionsFulfilled);
-            Manager.EventManager.AddListener(PCEventType.OnOrderCompleted, OnOrderCompleted);
             Manager.EventManager.RemoveListener(PCEventType.OnOrderCompleted, OnOrderCompleted);
+            Manager.EventManager.RemoveListener(PCEventType.OnOrderCompleted, OnOrderCompleted);
+            Manager.EventManager.RemoveListener(PCEventType.OnOrderInstructionsPopUpClicked, OnOrderInstructionsPopUpClicked);
         }
 
         private void OnDestroy()

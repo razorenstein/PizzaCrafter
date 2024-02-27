@@ -4,6 +4,7 @@ using Assets._PC.Scripts.Core.Data.Enums;
 using Assets._PC.Scripts.Core.Data.Events;
 using Assets._PC.Scripts.Core.Data.Orders;
 using Assets._PC.Scripts.Core.Data.Products;
+using Assets._PC.Scripts.Core.Data.Recipes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,6 +74,28 @@ namespace Assets._PC.Scripts.Core.Managers
             {
                 OrdersIds = satisfiedOrders
             });
+        }
+
+
+        public bool TryGetOrderInstructions(Guid orderId, out RecipeData recipeData)
+        {
+            recipeData = null;
+
+            if (Orders.TryGetValue(orderId, out var orderData))
+            {
+                if (PCManager.Instance.RecipesManager.TryGetRecipe(orderData.ProductType, out recipeData))
+                {
+                    PCManager.Instance.EventManager.InvokeEvent(PCEventType.OnOrderInstructionsPopUpClicked, new OrderInstructionsPopUpClickedEventData()
+                    {
+                        OrderId = orderId,
+                        RecipeData = recipeData
+                    });
+
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private bool IsOrderSatisfied(OrderData order, out List<ProductData> products)

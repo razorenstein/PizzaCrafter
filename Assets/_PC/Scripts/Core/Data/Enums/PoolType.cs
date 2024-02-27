@@ -13,6 +13,8 @@ namespace Assets._PC.Scripts.Core.Data.Enums
         ProductTile,
         OvenTile,
         Cell,
-        Order
+        Order,
+        OrderInstructionsItem,
+        OrderInstructionsPopUp
     }
 }

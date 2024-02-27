@@ -13,6 +13,8 @@
         OnOrderConditionsFulfilled, //all the conditions are satisfied
         OnOrderCompleted,
         OnOrderExpired,
+        OnOrderInstructionsPopUpClicked,
+        OnOrderInstructionsPopUpCanceled,
         OnOvenIngredientsFormRecipe,
         //Currencies
         OnCurrenciesUpdated

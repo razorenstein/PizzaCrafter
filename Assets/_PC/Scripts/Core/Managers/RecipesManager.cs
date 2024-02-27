@@ -23,7 +23,7 @@ namespace Assets._PC.Scripts.Core.Managers
             PCManager.Instance.ConfigurationManager.GetConfig<RecipesConfig>(OnConfigLoaded);
         }
 
-        public bool GetRecipe(ProductType recipeType, out RecipeData recipe)
+        public bool TryGetRecipe(ProductType recipeType, out RecipeData recipe)
         {
             recipe = null;
 

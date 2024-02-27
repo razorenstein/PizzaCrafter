@@ -21,4 +21,5 @@ MonoBehaviour:
     \"ingredient-flour-2\"\r\n        },\r\n        {\r\n          \"Type\": 0, \r\n         
     \"Level\": 2,\r\n          \"MaxLevel\": 5, // Example max level\r\n         
     \"SpriteAddressableKey\": \"ingredient-cheese-2\"\r\n        }\r\n      ],\r\n     
-    \"CraftingTime\": 10.0\r\n    }\r\n  }\r\n}"
+    \"CraftingTime\": 10.0,\n      \"SpriteAddressableKey\": \"product-margherita_pizza-1\"\r\n   
+    }\r\n  }\r\n}"
